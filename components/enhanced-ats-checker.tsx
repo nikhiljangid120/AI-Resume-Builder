@@ -404,7 +404,7 @@ export function EnhancedATSChecker({
           </Badge>
         </CardTitle>
         <CardDescription>
-          Analyze your resume against job descriptions using advanced AI and machine learning techniques
+          Analyze your resume against job descriptions using advanced AI and machine learning techniques.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
