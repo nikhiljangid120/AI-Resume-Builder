@@ -329,7 +329,7 @@ export default function LandingPage() {
                 <a href="https://github.com/nikhiljangid" target="_blank" rel="noopener noreferrer">
                   <Button variant="outline">GitHub</Button>
                 </a>
-                <a href="https://linkedin.com/in/nikhiljangid" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.linkedin.com/in/nikhil-jangid-b84360264/" target="_blank" rel="noopener noreferrer">
                   <Button variant="outline">LinkedIn</Button>
                 </a>
               </div>
