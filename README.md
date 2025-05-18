@@ -1,1 +1,1 @@
-AI Resume Builder
+AI Resume Builder amade using Next.js
