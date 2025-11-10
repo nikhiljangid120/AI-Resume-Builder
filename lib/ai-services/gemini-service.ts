@@ -1,5 +1,4 @@
 "use client"
-
 import { GoogleGenerativeAI } from "@google/generative-ai"
 
 // Initialize the Gemini API client
