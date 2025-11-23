@@ -105,7 +105,7 @@ export function AIFeatures({ resumeData, onDataChange, jobDescription }: AIFeatu
       }
       toast({
         title: "Generation Failed",
-        description: "There was an error generating your summary. Please check the error message for details.",
+        description: "There was an error generating your summary. Please check the error message for details.", 
         variant: "destructive",
       })
     } finally {
