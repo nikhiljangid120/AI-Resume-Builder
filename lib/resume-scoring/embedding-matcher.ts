@@ -4,6 +4,12 @@ import type { EmbeddingMatch } from "./types"
  * Calculate embedding match between resume text and job description
  */
 export async function calculateEmbeddingMatch(resumeText: string, jobDescription: string): Promise<EmbeddingMatch> {
+  // Check if API key is configured
+  if (!process.env.HUGGINGFACE_API_KEY) {
+    // console.log("HuggingFace API key not configured, using basic similarity") // Optional logging
+    return calculateBasicSimilarity(resumeText, jobDescription)
+  }
+
   try {
     // Try to use HuggingFace API for embeddings
     return await calculateWithHuggingFace(resumeText, jobDescription)

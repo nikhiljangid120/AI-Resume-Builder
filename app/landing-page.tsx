@@ -326,7 +326,7 @@ export default function LandingPage() {
                 accessible to everyone.
               </p>
               <div className="flex gap-4">
-                <a href="https://github.com/nikhiljangid" target="_blank" rel="noopener noreferrer">
+                <a href="https://github.com/nikhiljangid120" target="_blank" rel="noopener noreferrer">
                   <Button variant="outline">GitHub</Button>
                 </a>
                 <a href="https://www.linkedin.com/in/nikhil-jangid-b84360264/" target="_blank" rel="noopener noreferrer">
@@ -462,7 +462,7 @@ export default function LandingPage() {
                         />
                       </svg>
                     </a>
-                    <a href="https://github.com/nikhiljangid" className="hover:text-purple-600 transition-colors">
+                    <a href="https://github.com/nikhiljangid120" className="hover:text-purple-600 transition-colors">
                       <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path
                           fillRule="evenodd"

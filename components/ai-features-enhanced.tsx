@@ -217,7 +217,7 @@ export function AIFeaturesEnhanced({ resumeData, onDataChange, jobDescription }:
           }
         }
       }
-
+ 
       onDataChange(enhancedData)
       setSuccess("Resume content enhanced successfully!")
       toast({

@@ -1,18 +1,26 @@
 "use client"
-
 import { GoogleGenerativeAI } from "@google/generative-ai"
 
 // Initialize the Gemini API client
-const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY || "")
+const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || ""
+const genAI = new GoogleGenerativeAI(apiKey)
 
 // Get the generative model - updated to use the correct model name
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" }) // Updated from gemini-pro to gemini-1.5-flash
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" })
 
 export interface GenerationOptions {
   temperature?: number
   topK?: number
   topP?: number
   maxOutputTokens?: number
+}
+
+function checkApiKey() {
+  if (!apiKey) {
+    console.warn("NEXT_PUBLIC_GEMINI_API_KEY is not set. Using mock data.")
+    return false
+  }
+  return true
 }
 
 /**
@@ -23,6 +31,10 @@ export async function generateWithGemini(
   systemPrompt?: string,
   options: GenerationOptions = {},
 ): Promise<string> {
+  if (!checkApiKey()) {
+    throw new Error("API key is missing")
+  }
+
   try {
     // Set generation config with defaults
     const generationConfig = {
@@ -82,6 +94,10 @@ export async function generateStructuredData<T>(
   systemPrompt?: string,
   options: GenerationOptions = {},
 ): Promise<T> {
+  if (!checkApiKey()) {
+    return createMockData<T>()
+  }
+
   try {
     const jsonPrompt = `${prompt}\n\nRespond ONLY with valid JSON. Do not include any explanations, markdown formatting, or text outside of the JSON structure.`
 
@@ -190,6 +206,8 @@ function createMockData<T>(): T {
  * Analyze text similarity using embeddings
  */
 export async function analyzeTextSimilarity(text1: string, text2: string): Promise<number> {
+  if (!checkApiKey()) return 70
+
   try {
     const prompt = `
     Compare the following two texts and rate their similarity on a scale from 0 to 100, where 0 means completely different and 100 means identical in meaning and content.
@@ -237,6 +255,19 @@ export async function enhanceBulletPoints(bulletPoints: string[], context: strin
     // If no valid bullet points, return the original array
     if (validBulletPoints.length === 0) {
       return bulletPoints
+    }
+
+    if (!checkApiKey()) {
+      // Fallback logic
+      const weakStartingVerbs = /^(helped|assisted|worked on|participated in|was responsible for)/i
+      const strongVerbs = ["Spearheaded", "Implemented", "Executed", "Delivered", "Orchestrated"]
+      return validBulletPoints.map(point => {
+        if (weakStartingVerbs.test(point)) {
+          const randomVerb = strongVerbs[Math.floor(Math.random() * strongVerbs.length)]
+          return point.replace(weakStartingVerbs, randomVerb)
+        }
+        return point
+      })
     }
 
     const prompt = `
@@ -292,6 +323,10 @@ export async function enhanceBulletPoints(bulletPoints: string[], context: strin
  * Generate a professional summary using Gemini AI
  */
 export async function generateProfessionalSummary(resumeData: any, jobDescription: string): Promise<string> {
+  if (!checkApiKey()) {
+    return "Experienced professional with a proven track record of delivering high-quality solutions. Skilled in problem-solving, communication, and team collaboration. Committed to continuous learning and applying innovative approaches to meet business objectives."
+  }
+  
   try {
     const prompt = `
     Create a compelling professional summary for a resume based on the following information:
@@ -335,6 +370,18 @@ export async function analyzeResumeForATS(
   feedback: string[]
   missingKeywords: string[]
 }> {
+  if (!checkApiKey()) {
+    return {
+      score: 70,
+      feedback: [
+        "Consider adding more keywords from the job description.",
+        "Quantify your achievements with specific metrics where possible.",
+        "Ensure your resume format is ATS-friendly with standard section headings.",
+      ],
+      missingKeywords: [],
+    }
+  }
+
   try {
     const prompt = `
     Analyze the following resume data against the job description for ATS compatibility:
@@ -381,6 +428,14 @@ export async function analyzeResumeForATS(
  * Generate tailoring tips using Gemini AI
  */
 export async function generateTailoringTips(resumeData: any, jobDescription: string): Promise<string[]> {
+  if (!checkApiKey()) {
+     return [
+      "Customize your professional summary to directly address the job requirements.",
+      "Reorganize your skills section to prioritize those mentioned in the job description.",
+      "Quantify your achievements to demonstrate measurable impact in areas relevant to the position.",
+    ]
+  }
+
   try {
     const prompt = `
     Based on the following resume data and job description, provide 3-5 specific tips to tailor this resume for the job:
@@ -431,6 +486,22 @@ export async function analyzeResumeStrengthsWeaknesses(
   readability: number
   impact: number
 }> {
+  if (!checkApiKey()) {
+     return {
+      strengths: ["Clear and concise formatting", "Well-organized skills section"],
+      weaknesses: ["Lacks quantifiable achievements", "Could benefit from more industry-specific keywords"],
+      opportunities: [
+        "Add metrics to demonstrate impact",
+        "Tailor your summary to match the job requirements",
+        "Highlight leadership experience more prominently",
+      ],
+      score: 75,
+      keywordMatch: 70,
+      readability: 80,
+      impact: 72,
+    }
+  }
+
   try {
     const prompt = `
     Analyze the following resume data against the job description to identify strengths, weaknesses, and opportunities for improvement:
