@@ -8,7 +8,7 @@ import { TechTemplate } from "./templates/tech-template"
 import { defaultCustomization } from "@/lib/templates"
 
 interface ResumePreviewProps {
-  resumeData: ResumeData
+  resumeData: ResumeData 
   template: Template
 }
 
