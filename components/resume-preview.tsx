@@ -1,16 +1,9 @@
-import type { ResumeData, Template } from "@/lib/types"
-import { ModernTemplate } from "./templates/modern-template"
-import { MinimalTemplate } from "./templates/minimal-template"
-import { ATSOptimizedTemplate } from "./templates/ats-optimized-template"
-import { CreativeTemplate } from "./templates/creative-template"
-import { ExecutiveTemplate } from "./templates/executive-template"
-import { TechTemplate } from "./templates/tech-template"
-import { defaultCustomization } from "@/lib/templates"
+import { ElegantTemplate } from "./templates/elegant-template"
+import { ProfessionalTemplate } from "./templates/professional-template"
+import { AcademicTemplate } from "./templates/academic-template"
+import { DesignerTemplate } from "./templates/designer-template"
 
-interface ResumePreviewProps {
-  resumeData: ResumeData 
-  template: Template
-}
+// ... imports remain the same
 
 export function ResumePreview({ resumeData, template }: ResumePreviewProps) {
   // Ensure customization exists
@@ -34,6 +27,14 @@ export function ResumePreview({ resumeData, template }: ResumePreviewProps) {
         return <ExecutiveTemplate resumeData={resumeDataWithCustomization} />
       case "tech":
         return <TechTemplate resumeData={resumeDataWithCustomization} />
+      case "elegant":
+        return <ElegantTemplate resumeData={resumeDataWithCustomization} />
+      case "professional":
+        return <ProfessionalTemplate resumeData={resumeDataWithCustomization} />
+      case "academic":
+        return <AcademicTemplate resumeData={resumeDataWithCustomization} />
+      case "designer":
+        return <DesignerTemplate resumeData={resumeDataWithCustomization} />
       default:
         return <ModernTemplate resumeData={resumeDataWithCustomization} />
     }
