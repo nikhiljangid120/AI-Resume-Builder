@@ -29,230 +29,17 @@ export function LandingPage() {
   const statRefs = useRef<(HTMLDivElement | null)[]>([])
   const hasAnimated = useRef<boolean[]>([])
 
-  // Interactive Particle Animation for Hero
-  useEffect(() => {
-    const canvas = document.getElementById("particle-canvas") as HTMLCanvasElement
-    if (!canvas) return
+  // Interactive Particle Animation for Hero - REMOVED
 
-    const ctx = canvas.getContext("2d")!
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
 
-    const particles: { x: number; y: number; size: number; speedX: number; speedY: number }[] = []
-    const particleCount = 80
-    let mouse = { x: 0, y: 0 }
+  // Reduced Sparkle Effect for ATS-Optimized - REMOVED
 
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: Math.random() * 4 + 2,
-        speedX: Math.random() * 0.3 - 0.15,
-        speedY: Math.random() * 0.3 - 0.15,
-      })
-    }
 
-    canvas.addEventListener("mousemove", (e) => {
-      mouse.x = e.clientX
-      mouse.y = e.clientY
-    })
+  // Button Particle Burst Effect - REMOVED
 
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      particles.forEach((particle) => {
-        const dx = mouse.x - particle.x
-        const dy = mouse.y - particle.y
-        const distance = Math.sqrt(dx * dx + dy * dy)
-        const force = distance < 100 ? (100 - distance) / 100 : 0
 
-        particle.x += particle.speedX + (dx * force) / 100
-        particle.y += particle.speedY + (dy * force) / 100
+  // Spotlight Effect for Hero Section Only - REMOVED
 
-        ctx.fillStyle = `rgba(147, 51, 234, ${0.5 + force})`
-        ctx.beginPath()
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
-        ctx.fill()
-
-        if (particle.x < 0 || particle.x > canvas.width) particle.speedX *= -1
-        if (particle.y < 0 || particle.y > canvas.height) particle.speedY *= -1
-      })
-      requestAnimationFrame(animate)
-    }
-
-    animate()
-
-    return () => {
-      cancelAnimationFrame(0)
-      canvas.removeEventListener("mousemove", () => {})
-    }
-  }, [])
-
-  // Reduced Sparkle Effect for ATS-Optimized
-  useEffect(() => {
-    const atsText = document.querySelector(".ats-optimized")
-    if (!atsText) return
-
-    const sparkleCanvas = document.createElement("canvas")
-    sparkleCanvas.className = "absolute inset-0 -z-10 pointer-events-none"
-    atsText.appendChild(sparkleCanvas)
-
-    const ctx = sparkleCanvas.getContext("2d")!
-    sparkleCanvas.width = atsText.clientWidth
-    sparkleCanvas.height = atsText.clientHeight
-
-    const sparkles: { x: number; y: number; size: number; opacity: number; speed: number; angle: number }[] = []
-    for (let i = 0; i < 20; i++) {
-      sparkles.push({
-        x: Math.random() * sparkleCanvas.width,
-        y: Math.random() * sparkleCanvas.height,
-        size: Math.random() * 4 + 1,
-        opacity: Math.random() * 0.6 + 0.2,
-        speed: Math.random() * 0.6 + 0.3,
-        angle: Math.random() * Math.PI * 2,
-      })
-    }
-
-    let hoverBurst = false
-    atsText.addEventListener("mouseenter", () => {
-      hoverBurst = true
-      for (let i = 0; i < 8; i++) {
-        sparkles.push({
-          x: sparkleCanvas.width / 2,
-          y: sparkleCanvas.height / 2,
-          size: Math.random() * 5 + 2,
-          opacity: 0.8,
-          speed: Math.random() * 2 + 0.8,
-          angle: Math.random() * Math.PI * 2,
-        })
-      }
-    })
-
-    function animateSparkles() {
-      ctx.clearRect(0, 0, sparkleCanvas.width, sparkleCanvas.height)
-      sparkles.forEach((sparkle, index) => {
-        ctx.fillStyle = `rgba(255, 255, 255, ${sparkle.opacity})`
-        ctx.beginPath()
-        ctx.arc(sparkle.x, sparkle.y, sparkle.size, 0, Math.PI * 2)
-        ctx.fill()
-
-        sparkle.x += Math.cos(sparkle.angle) * sparkle.speed
-        sparkle.y += Math.sin(sparkle.angle) * sparkle.speed
-        sparkle.opacity -= 0.02 * sparkle.speed
-
-        if (sparkle.opacity <= 0 || sparkle.x < 0 || sparkle.x > sparkleCanvas.width || sparkle.y < 0 || sparkle.y > sparkleCanvas.height) {
-          if (hoverBurst && index >= 20) {
-            sparkles.splice(index, 1)
-          } else {
-            sparkle.x = Math.random() * sparkleCanvas.width
-            sparkle.y = Math.random() * sparkleCanvas.height
-            sparkle.opacity = Math.random() * 0.6 + 0.2
-            sparkle.angle = Math.random() * Math.PI * 2
-          }
-        }
-      })
-      requestAnimationFrame(animateSparkles)
-    }
-
-    animateSparkles()
-
-    return () => {
-      sparkleCanvas.remove()
-    }
-  }, [])
-
-  // Button Particle Burst Effect
-  useEffect(() => {
-    const buttons = document.querySelectorAll(".futuristic-button")
-    buttons.forEach((button) => {
-      const canvas = document.createElement("canvas")
-      canvas.className = "absolute inset-0 -z-10 pointer-events-none"
-      button.appendChild(canvas)
-
-      const ctx = canvas.getContext("2d")!
-      canvas.width = button.clientWidth
-      canvas.height = button.clientHeight
-
-      const particles: { x: number; y: number; size: number; opacity: number; speed: number; angle: number }[] = []
-
-      button.addEventListener("mouseenter", (e) => {
-        const rect = button.getBoundingClientRect()
-        const x = e.clientX - rect.left
-        const y = e.clientY - rect.top
-
-        for (let i = 0; i < 15; i++) {
-          particles.push({
-            x,
-            y,
-            size: Math.random() * 3 + 1,
-            opacity: 1,
-            speed: Math.random() * 2 + 1,
-            angle: Math.random() * Math.PI * 2,
-          })
-        }
-      })
-
-      function animateButtonParticles() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
-        particles.forEach((particle, index) => {
-          ctx.fillStyle = `rgba(147, 51, 234, ${particle.opacity})`
-          ctx.beginPath()
-          ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
-          ctx.fill()
-
-          particle.x += Math.cos(particle.angle) * particle.speed
-          particle.y += Math.sin(particle.angle) * particle.speed
-          particle.opacity -= 0.05
-
-          if (particle.opacity <= 0) {
-            particles.splice(index, 1)
-          }
-        })
-        requestAnimationFrame(animateButtonParticles)
-      }
-
-      animateButtonParticles()
-    })
-  }, [])
-
-  // Spotlight Effect for Hero Section Only
-  useEffect(() => {
-    const heroSection = document.querySelector("#hero-section") as HTMLElement
-    if (!heroSection) return
-
-    const spotlight = document.createElement("div")
-    spotlight.className = "absolute inset-0 pointer-events-none"
-    spotlight.style.background = "radial-gradient(circle 200px at 0 0, rgba(147, 51, 234, 0.2), transparent)"
-    heroSection.appendChild(spotlight)
-
-    let mouseX = 0
-    let mouseY = 0
-    let scrollY = 0
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX
-      mouseY = e.clientY
-      updateSpotlight()
-    }
-
-    const handleScroll = () => {
-      scrollY = window.scrollY / window.innerHeight
-      updateSpotlight()
-    }
-
-    const updateSpotlight = () => {
-      const intensity = 0.2 + scrollY * 0.3
-      spotlight.style.background = `radial-gradient(circle 200px at ${mouseX}px ${mouseY}px, rgba(147, 51, 234, ${intensity}), transparent)`
-    }
-
-    heroSection.addEventListener("mousemove", handleMouseMove)
-    window.addEventListener("scroll", handleScroll)
-
-    return () => {
-      heroSection.removeEventListener("mousemove", handleMouseMove)
-      window.removeEventListener("scroll", handleScroll)
-      spotlight.remove()
-    }
-  }, [])
 
   // Live Resume Editor Typing Animation
   useEffect(() => {
@@ -338,68 +125,7 @@ export function LandingPage() {
       if (card) observer.observe(card)
     })
 
-    // Holographic hover effect
-    statCards.forEach((card) => {
-      const canvas = document.createElement("canvas")
-      canvas.className = "absolute inset-0 -z-10 pointer-events-none"
-      card.appendChild(canvas)
-
-      const ctx = canvas.getContext("2d")!
-      canvas.width = card.clientWidth
-      canvas.height = card.clientHeight
-
-      const ripples: { x: number; y: number; radius: number; opacity: number }[] = []
-      const flares: { x: number; y: number; opacity: number }[] = []
-
-      card.addEventListener("mouseenter", (e) => {
-        const rect = card.getBoundingClientRect()
-        const x = e.clientX - rect.left
-        const y = e.clientY - rect.top
-
-        ripples.push({ x, y, radius: 0, opacity: 1 })
-        flares.push({ x, y, opacity: 1 })
-      })
-
-      function animateHoloEffect() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-        // Draw ripples
-        ripples.forEach((ripple, index) => {
-          ctx.beginPath()
-          ctx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2)
-          ctx.strokeStyle = `rgba(147, 51, 234, ${ripple.opacity})`
-          ctx.lineWidth = 2
-          ctx.stroke()
-
-          ripple.radius += 1
-          ripple.opacity -= 0.02
-
-          if (ripple.opacity <= 0) {
-            ripples.splice(index, 1)
-          }
-        })
-
-        // Draw flares
-        flares.forEach((flare, index) => {
-          ctx.beginPath()
-          ctx.arc(flare.x, flare.y, 5, 0, Math.PI * 2)
-          ctx.fillStyle = `rgba(255, 255, 255, ${flare.opacity})`
-          ctx.shadowBlur = 20
-          ctx.shadowColor = "#9333ea"
-          ctx.fill()
-
-          flare.opacity -= 0.05
-
-          if (flare.opacity <= 0) {
-            flares.splice(index, 1)
-          }
-        })
-
-        requestAnimationFrame(animateHoloEffect)
-      }
-
-      animateHoloEffect()
-    })
+    // Holographic hover effect - REMOVED
 
     return () => {
       statRefs.current.forEach((card) => {
@@ -408,90 +134,8 @@ export function LandingPage() {
     }
   }, [])
 
-  // How It Works Card Neon Grid and Particle Swarm - Improved Version
-  useEffect(() => {
-    const cards = document.querySelectorAll(".how-it-works-card")
-    cards.forEach((card) => {
-      const canvas = document.createElement("canvas")
-      canvas.className = "absolute inset-0 -z-10 pointer-events-none"
-      card.appendChild(canvas)
+  // How It Works Card Neon Grid and Particle Swarm - REMOVED
 
-      const ctx = canvas.getContext("2d")!
-      canvas.width = card.clientWidth
-      canvas.height = card.clientHeight
-
-      const particles: { x: number; y: number; size: number; opacity: number; angle: number; radius: number }[] = []
-      let isHovered = false
-
-      card.addEventListener("mouseenter", () => {
-        isHovered = true
-        for (let i = 0; i < 15; i++) {
-          particles.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            size: Math.random() * 2 + 1,
-            opacity: 1,
-            angle: Math.random() * Math.PI * 2,
-            radius: Math.random() * 50,
-          })
-        }
-      })
-
-      card.addEventListener("mouseleave", () => {
-        isHovered = false
-      })
-
-      function animateCardEffects() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-        // Draw connecting lines between particles when hovered
-        if (isHovered) {
-          ctx.strokeStyle = "rgba(147, 51, 234, 0.3)"
-          ctx.lineWidth = 1
-          
-          // Draw connections between nearby particles
-          for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-              const dx = particles[i].x - particles[j].x
-              const dy = particles[i].y - particles[j].y
-              const distance = Math.sqrt(dx * dx + dy * dy)
-              
-              if (distance < 100) {
-                ctx.beginPath()
-                ctx.moveTo(particles[i].x, particles[i].y)
-                ctx.lineTo(particles[j].x, particles[j].y)
-                ctx.stroke()
-              }
-            }
-          }
-        }
-
-        // Draw particle swarm
-        particles.forEach((particle, index) => {
-          particle.angle += 0.02
-          particle.radius += 0.2
-          particle.x += Math.cos(particle.angle) * 0.5
-          particle.y += Math.sin(particle.angle) * 0.5
-          particle.opacity -= isHovered ? 0.005 : 0.02
-
-          ctx.beginPath()
-          ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
-          ctx.fillStyle = `rgba(147, 51, 234, ${particle.opacity})`
-          ctx.fill()
-
-          if (particle.opacity <= 0 || 
-              particle.x < -50 || particle.x > canvas.width + 50 || 
-              particle.y < -50 || particle.y > canvas.height + 50) {
-            particles.splice(index, 1)
-          }
-        })
-
-        requestAnimationFrame(animateCardEffects)
-      }
-
-      animateCardEffects()
-    })
-  }, [])
 
   // Transition Effect for Buttons
   const handleTransition = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -1002,11 +646,10 @@ export function LandingPage() {
                   <span
                     key={index}
                     style={{ "--i": index } as any}
-                    className={`${
-                      word === "ATS-Optimized"
+                    className={`${word === "ATS-Optimized"
                         ? "ats-optimized"
                         : "text-white dark:text-gray-100"
-                    } mx-1`}
+                      } mx-1`}
                   >
                     {word}
                   </span>
@@ -1443,7 +1086,7 @@ export function LandingPage() {
                 <li>
                   <a href="#features" className="text-gray-400 hover:text-purple-400 link-hover">
                     Features
-		</a>
+                  </a>
                 </li>
                 <li>
                   <a href="#how-it-works" className="text-gray-400 hover:text-purple-400 link-hover">
