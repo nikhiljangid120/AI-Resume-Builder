@@ -196,7 +196,7 @@ export function ResumeBuilder() {
       toast({
         title: "Export Successful",
         description: "Your resume has been exported to PDF successfully!",
-        variant: "success",
+        variant: "default",
       })
     } catch (error) {
       console.error("Error exporting PDF:", error)
