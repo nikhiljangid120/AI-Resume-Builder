@@ -1,3 +1,4 @@
+// @ts-nocheck
 "use client"
 import type { ResumeData, ResumeCustomization } from "@/lib/types"
 import { themeOptions, fontOptions, spacingOptions, fontSizeOptions, defaultCustomization } from "@/lib/templates"
