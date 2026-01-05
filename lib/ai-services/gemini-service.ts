@@ -65,7 +65,10 @@ export async function generateWithGemini(
       return response.text()
     } else {
       // Use direct generation if no system prompt
-      const result = await model.generateContent(prompt, generationConfig)
+      const result = await model.generateContent({
+        contents: [{ role: "user", parts: [{ text: prompt }] }],
+        generationConfig,
+      })
       const response = result.response
       return response.text()
     }

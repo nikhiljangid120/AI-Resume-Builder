@@ -129,14 +129,14 @@ export function ResumePreviewModal({ resumeData, template, open, onOpenChange }:
         toast({
           title: "Shared Successfully",
           description: "Your resume link has been shared!",
-          variant: "success",
+          variant: "default",
         })
       } else {
         await navigator.clipboard.writeText(window.location.href)
         toast({
           title: "Link Copied",
           description: "Resume link copied to clipboard. You can now share it manually.",
-          variant: "success",
+          variant: "default",
         })
       }
     } catch (error) {
@@ -598,7 +598,7 @@ export function ResumePreviewModal({ resumeData, template, open, onOpenChange }:
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3 }}
               >
-                <ResumePreview resumeData={resumeData} template={template} orientation={orientation} />
+                <ResumePreview resumeData={resumeData} template={template} />
               </motion.div>
             </TabsContent>
 
