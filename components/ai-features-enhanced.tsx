@@ -916,28 +916,28 @@ ${analysisResult.join('\n\n')}
                     <div className="text-center">
                       <div className="text-xs text-gray-500 dark:text-gray-400">Keyword Match</div>
                       <div className="mt-1 flex items-center justify-center gap-1">
-                        <Progress value={analysisScore - 5} className="h-2 w-16 bg-gray-200 dark:bg-gray-700" indicatorColor="bg-blue-500" />
+                        <Progress value={analysisScore - 5} className="h-2 w-16 bg-gray-200 dark:bg-gray-700" indicatorClassName="bg-blue-500" />
                         <span className="text-sm font-medium text-blue-600 dark:text-blue-400">{analysisScore - 5}%</span>
                       </div>
                     </div>
                     <div className="text-center">
                       <div className="text-xs text-gray-500 dark:text-gray-400">Content Quality</div>
                       <div className="mt-1 flex items-center justify-center gap-1">
-                        <Progress value={analysisScore + 3} className="h-2 w-16 bg-gray-200 dark:bg-gray-700" indicatorColor="bg-green-500" />
+                        <Progress value={analysisScore + 3} className="h-2 w-16 bg-gray-200 dark:bg-gray-700" indicatorClassName="bg-green-500" />
                         <span className="text-sm font-medium text-green-600 dark:text-green-400">{analysisScore + 3}%</span>
                       </div>
                     </div>
                     <div className="text-center">
                       <div className="text-xs text-gray-500 dark:text-gray-400">Format & Structure</div>
                       <div className="mt-1 flex items-center justify-center gap-1">
-                        <Progress value={analysisScore - 2} className="h-2 w-16 bg-gray-200 dark:bg-gray-700" indicatorColor="bg-purple-500" />
+                        <Progress value={analysisScore - 2} className="h-2 w-16 bg-gray-200 dark:bg-gray-700" indicatorClassName="bg-purple-500" />
                         <span className="text-sm font-medium text-purple-600 dark:text-purple-400">{analysisScore - 2}%</span>
                       </div>
                     </div>
                     <div className="text-center">
                       <div className="text-xs text-gray-500 dark:text-gray-400">Relevance to Job</div>
                       <div className="mt-1 flex items-center justify-center gap-1">
-                        <Progress value={analysisScore + 5} className="h-2 w-16 bg-gray-200 dark:bg-gray-700" indicatorColor="bg-amber-500" />
+                        <Progress value={analysisScore + 5} className="h-2 w-16 bg-gray-200 dark:bg-gray-700" indicatorClassName="bg-amber-500" />
                         <span className="text-sm font-medium text-amber-600 dark:text-amber-400">{analysisScore + 5}%</span>
                       </div>
                     </div>
