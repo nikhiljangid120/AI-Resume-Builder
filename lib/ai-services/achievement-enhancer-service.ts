@@ -40,59 +40,60 @@ export async function enhanceAchievements(
     Respond with an array of enhanced achievements in JSON format. Each enhanced achievement should be concise (under 25 words), start with a strong action verb, and include specific metrics where appropriate.
     `
 
-    temperature: 0.7,
+    const response = await generateStructuredData(prompt, systemPrompt, {
+      temperature: 0.7,
       maxTokens: 1024,
     })
 
-  // Handle different response formats
-  let enhancedAchievements: string[] = []
+    // Handle different response formats
+    let enhancedAchievements: string[] = []
 
-  // Check if response is an array of objects with 'achievement' property
-  if (
-    Array.isArray(response) &&
-    response.length > 0 &&
-    typeof response[0] === "object" &&
-    "achievement" in response[0]
-  ) {
-    console.log("Response format: Array of objects with 'achievement' property")
-    enhancedAchievements = response.map((item) => item.achievement)
-  }
-  // Check if response has 'enhancedAchievements' property
-  else if (
-    response &&
-    typeof response === "object" &&
-    "enhancedAchievements" in response &&
-    Array.isArray(response.enhancedAchievements)
-  ) {
-    console.log("Response format: Object with 'enhancedAchievements' array")
-    enhancedAchievements = response.enhancedAchievements
-  }
-  // Check if response is a direct array of strings
-  else if (Array.isArray(response) && response.length > 0 && typeof response[0] === "string") {
-    console.log("Response format: Array of strings")
-    enhancedAchievements = response
-  }
-  // Check for numbered properties (e.g., {1: "...", 2: "..."})
-  else if (response && typeof response === "object") {
-    const numberedEntries = Object.entries(response).filter(([key]) => !isNaN(Number(key)))
-    if (numberedEntries.length > 0) {
-      console.log("Response format: Object with numbered properties")
-      enhancedAchievements = numberedEntries.map(([_, value]) => String(value))
+    // Check if response is an array of objects with 'achievement' property
+    if (
+      Array.isArray(response) &&
+      response.length > 0 &&
+      typeof response[0] === "object" &&
+      "achievement" in response[0]
+    ) {
+      console.log("Response format: Array of objects with 'achievement' property")
+      enhancedAchievements = response.map((item) => item.achievement)
     }
-  }
+    // Check if response has 'enhancedAchievements' property
+    else if (
+      response &&
+      typeof response === "object" &&
+      "enhancedAchievements" in response &&
+      Array.isArray(response.enhancedAchievements)
+    ) {
+      console.log("Response format: Object with 'enhancedAchievements' array")
+      enhancedAchievements = response.enhancedAchievements
+    }
+    // Check if response is a direct array of strings
+    else if (Array.isArray(response) && response.length > 0 && typeof response[0] === "string") {
+      console.log("Response format: Array of strings")
+      enhancedAchievements = response
+    }
+    // Check for numbered properties (e.g., {1: "...", 2: "..."})
+    else if (response && typeof response === "object") {
+      const numberedEntries = Object.entries(response).filter(([key]) => !isNaN(Number(key)))
+      if (numberedEntries.length > 0) {
+        console.log("Response format: Object with numbered properties")
+        enhancedAchievements = numberedEntries.map(([_, value]) => String(value))
+      }
+    }
 
-  // If we couldn't extract achievements from any known format, log the response and return original
-  if (enhancedAchievements.length === 0) {
-    console.error("Invalid response format from AI service:", response)
-    return validAchievements
-  }
+    // If we couldn't extract achievements from any known format, log the response and return original
+    if (enhancedAchievements.length === 0) {
+      console.error("Invalid response format from AI service:", response)
+      return validAchievements
+    }
 
-  return enhancedAchievements
-} catch (error) {
-  console.error("Error enhancing achievements:", error)
-  // Return the original achievements as a fallback
-  return achievements.filter((a) => a && a.trim() !== "")
-}
+    return enhancedAchievements
+  } catch (error) {
+    console.error("Error enhancing achievements:", error)
+    // Return the original achievements as a fallback
+    return achievements.filter((a) => a && a.trim() !== "")
+  }
 }
 
 function getStyleGuide(style: EnhancementStyle): string {
