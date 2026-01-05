@@ -80,7 +80,7 @@ export function ATSCheckerEnhanced({
       toast({
         title: "Analysis Complete",
         description: "Your resume has been analyzed against the job description.",
-        variant: "success",
+        variant: "default",
       })
     } catch (error) {
       console.error("Error analyzing resume:", error)

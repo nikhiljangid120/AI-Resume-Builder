@@ -143,7 +143,7 @@ export default function useResumeBuilder({ resumeData, setResumeData }: UseResum
           toast({
             title: "Resume Data Imported",
             description: "Your resume data has been successfully imported and merged with existing data.",
-            variant: "success",
+            variant: "default",
           })
         }, 0)
 
@@ -196,7 +196,7 @@ export default function useResumeBuilder({ resumeData, setResumeData }: UseResum
       toast({
         title: "Data Updated",
         description: "Your resume data has been successfully updated and saved.",
-        variant: "success",
+        variant: "default",
       })
     },
     [setResumeData, toast],

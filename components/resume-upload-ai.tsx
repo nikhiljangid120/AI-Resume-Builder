@@ -92,7 +92,7 @@ export function ResumeUploadAI({ onResumeDataGenerated }: ResumeUploadAIProps) {
       toast({
         title: "Resume processed successfully",
         description: "Your resume data has been extracted and is ready for editing.",
-        variant: "success",
+        variant: "default",
       })
     } catch (err) {
       setError("Error processing resume. Please try again.")

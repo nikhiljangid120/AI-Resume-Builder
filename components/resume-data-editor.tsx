@@ -52,7 +52,7 @@ export function ResumeDataEditor({ resumeData, onDataChange, extractedText }: Re
     toast({
       title: "Personal Info Updated",
       description: "Your personal information has been saved successfully.",
-      variant: "success",
+      variant: "default",
     })
   }
 
@@ -99,7 +99,7 @@ export function ResumeDataEditor({ resumeData, onDataChange, extractedText }: Re
     toast({
       title: "Skills Updated",
       description: "Your skills have been saved successfully.",
-      variant: "success",
+      variant: "default",
     })
   }
 
