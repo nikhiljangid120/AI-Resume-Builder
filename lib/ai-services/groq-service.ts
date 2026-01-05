@@ -9,7 +9,7 @@ const groq = new Groq({
 })
 
 // Default model to use
-const DEFAULT_MODEL = "llama3-70b-8192"
+const DEFAULT_MODEL = "llama-3.3-70b-versatile"
 
 export interface GenerationOptions {
     temperature?: number
@@ -86,7 +86,7 @@ export async function generateStructuredData<T>(
         const jsonResponse = await generateWithGroq(jsonPrompt, enhancedSystemPrompt, {
             ...options,
             temperature: options.temperature ?? 0.2, // Lower temperature for structured data
-            model: "llama3-70b-8192" // Use the larger model for better JSON adherence
+            model: "llama-3.3-70b-versatile" // Use the larger model for better JSON adherence
         })
 
         // Extract JSON from the response
