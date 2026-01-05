@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
 import type { ResumeData } from "@/lib/types"
 import { defaultResumeData } from "@/lib/default-data"
-import { templates } from "@/lib/templates"
+import { templates, defaultCustomization } from "@/lib/templates"
 import { ResumeEditor } from "@/components/resume-editor"
 import { ResumePreview } from "@/components/resume-preview"
 import { ResumePreviewModal } from "@/components/resume-preview-modal"
@@ -179,7 +179,7 @@ export function ResumeBuilder() {
             link: proj.link ?? "",
             startDate: proj.startDate ?? "",
             endDate: proj.endDate ?? "",
-            achievements: Array.isArray(proj.achievements) ? exp.achievements.map((a) => a ?? "") : [""],
+            achievements: Array.isArray(proj.achievements) ? proj.achievements.map((a) => a ?? "") : [""],
           }))
           : []
       }
@@ -434,7 +434,7 @@ export function ResumeBuilder() {
                   onDataChange={handleDataChange}
                   onSectionReorder={(sections) =>
                     handleDataChange({
-                      customization: { ...resumeData.customization, sectionOrder: sections },
+                      customization: { ...defaultCustomization, ...resumeData.customization, sectionOrder: sections },
                     })
                   }
                   jobDescription={jobDescription}
