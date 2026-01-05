@@ -6,7 +6,7 @@ const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || ""
 const genAI = new GoogleGenerativeAI(apiKey)
 
 // Get the generative model - updated to use the correct model name
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" })
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-001" })
 
 export interface GenerationOptions {
   temperature?: number
@@ -75,7 +75,7 @@ export async function generateWithGemini(
     // Try fallback model if primary model fails
     try {
       console.log("Attempting with fallback model gemini-pro...")
-      const fallbackModel = genAI.getGenerativeModel({ model: "gemini-pro" })
+      const fallbackModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash-001" })
       const result = await fallbackModel.generateContent(prompt)
       const response = result.response
       return response.text()
@@ -326,7 +326,7 @@ export async function generateProfessionalSummary(resumeData: any, jobDescriptio
   if (!checkApiKey()) {
     return "Experienced professional with a proven track record of delivering high-quality solutions. Skilled in problem-solving, communication, and team collaboration. Committed to continuous learning and applying innovative approaches to meet business objectives."
   }
-  
+
   try {
     const prompt = `
     Create a compelling professional summary for a resume based on the following information:
@@ -429,7 +429,7 @@ export async function analyzeResumeForATS(
  */
 export async function generateTailoringTips(resumeData: any, jobDescription: string): Promise<string[]> {
   if (!checkApiKey()) {
-     return [
+    return [
       "Customize your professional summary to directly address the job requirements.",
       "Reorganize your skills section to prioritize those mentioned in the job description.",
       "Quantify your achievements to demonstrate measurable impact in areas relevant to the position.",
@@ -487,7 +487,7 @@ export async function analyzeResumeStrengthsWeaknesses(
   impact: number
 }> {
   if (!checkApiKey()) {
-     return {
+    return {
       strengths: ["Clear and concise formatting", "Well-organized skills section"],
       weaknesses: ["Lacks quantifiable achievements", "Could benefit from more industry-specific keywords"],
       opportunities: [

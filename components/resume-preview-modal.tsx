@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { ResumePreview } from "@/components/resume-preview"
 import {
@@ -373,9 +373,8 @@ export function ResumePreviewModal({ resumeData, template, open, onOpenChange }:
                 variant="outline"
                 size={isMobile ? "sm" : "icon"}
                 onClick={toggleOrientation}
-                className={`bg-gray-800/80 border-purple-400/50 text-purple-200 hover:bg-purple-500/20 transition-all duration-200 ${
-                  isMobile ? "text-xs px-2" : ""
-                }`}
+                className={`bg-gray-800/80 border-purple-400/50 text-purple-200 hover:bg-purple-500/20 transition-all duration-200 ${isMobile ? "text-xs px-2" : ""
+                  }`}
               >
                 <RotateCw className={isMobile ? "h-3 w-3 mr-1" : "h-4 w-4"} />
                 {isMobile && "Rotate"}
@@ -393,9 +392,8 @@ export function ResumePreviewModal({ resumeData, template, open, onOpenChange }:
                 size={isMobile ? "sm" : "icon"}
                 onClick={handlePrint}
                 disabled={isPrinting}
-                className={`bg-gray-800/80 border-purple-400/50 text-purple-200 hover:bg-purple-500/20 transition-all duration-200 ${
-                  isMobile ? "text-xs px-2" : ""
-                }`}
+                className={`bg-gray-800/80 border-purple-400/50 text-purple-200 hover:bg-purple-500/20 transition-all duration-200 ${isMobile ? "text-xs px-2" : ""
+                  }`}
               >
                 {isPrinting ? (
                   <Loader2 className={isMobile ? "h-3 w-3 mr-1 animate-spin" : "h-4 w-4 animate-spin"} />
@@ -417,9 +415,8 @@ export function ResumePreviewModal({ resumeData, template, open, onOpenChange }:
                 size={isMobile ? "sm" : "icon"}
                 onClick={handleExportToPDF}
                 disabled={isExporting}
-                className={`bg-gray-800/80 border-purple-400/50 text-purple-200 hover:bg-purple-500/20 transition-all duration-200 ${
-                  isMobile ? "text-xs px-2" : ""
-                }`}
+                className={`bg-gray-800/80 border-purple-400/50 text-purple-200 hover:bg-purple-500/20 transition-all duration-200 ${isMobile ? "text-xs px-2" : ""
+                  }`}
               >
                 {isExporting ? (
                   <Loader2 className={isMobile ? "h-3 w-3 mr-1 animate-spin" : "h-4 w-4 animate-spin"} />
@@ -501,14 +498,14 @@ export function ResumePreviewModal({ resumeData, template, open, onOpenChange }:
     <TooltipProvider>
       <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent
-          className={`max-w-5xl h-[90vh] flex flex-col p-0 overflow-hidden bg-gray-900/95 backdrop-blur-xl border border-purple-400/30 ${
-            isMobile ? "w-[95vw]" : ""
-          }`}
+          className={`max-w-5xl h-[90vh] flex flex-col p-0 overflow-hidden bg-gray-900/95 backdrop-blur-xl border border-purple-400/30 ${isMobile ? "w-[95vw]" : ""
+            }`}
         >
           <DialogHeader className="flex flex-row items-center justify-between p-4 border-b border-purple-400/30">
             <DialogTitle className={`text-purple-200 ${isMobile ? "text-sm" : ""}`}>
               Resume Preview
             </DialogTitle>
+            <DialogDescription className="sr-only">Resume preview and actions</DialogDescription>
             {renderActionButtons()}
           </DialogHeader>
 
@@ -590,9 +587,8 @@ export function ResumePreviewModal({ resumeData, template, open, onOpenChange }:
             >
               <motion.div
                 ref={previewContainerRef}
-                className={`mx-auto bg-white shadow-lg rounded-lg transition-all duration-300 ease-in-out ${
-                  orientation === "landscape" ? "max-w-[1000px]" : "max-w-[800px]"
-                }`}
+                className={`mx-auto bg-white shadow-lg rounded-lg transition-all duration-300 ease-in-out ${orientation === "landscape" ? "max-w-[1000px]" : "max-w-[800px]"
+                  }`}
                 style={{
                   transform: `scale(${zoomLevel / 100})`,
                   transformOrigin: "top center",
@@ -625,22 +621,20 @@ export function ResumePreviewModal({ resumeData, template, open, onOpenChange }:
                       <Button
                         variant={orientation === "portrait" ? "default" : "outline"}
                         onClick={() => setOrientation("portrait")}
-                        className={`flex-1 ${
-                          orientation === "portrait"
-                            ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white"
-                            : "bg-gray-800/80 border-purple-400/50 text-purple-200 hover:bg-purple-500/20"
-                        }`}
+                        className={`flex-1 ${orientation === "portrait"
+                          ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white"
+                          : "bg-gray-800/80 border-purple-400/50 text-purple-200 hover:bg-purple-500/20"
+                          }`}
                       >
                         Portrait
                       </Button>
                       <Button
                         variant={orientation === "landscape" ? "default" : "outline"}
                         onClick={() => setOrientation("landscape")}
-                        className={`flex-1 ${
-                          orientation === "landscape"
-                            ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white"
-                            : "bg-gray-800/80 border-purple-400/50 text-purple-200 hover:bg-purple-500/20"
-                        }`}
+                        className={`flex-1 ${orientation === "landscape"
+                          ? "bg-gradient-to-r from-purple-600 to-blue-600 text-white"
+                          : "bg-gray-800/80 border-purple-400/50 text-purple-200 hover:bg-purple-500/20"
+                          }`}
                       >
                         Landscape
                       </Button>
