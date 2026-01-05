@@ -546,13 +546,9 @@ export function ResumeBuilder() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="p-0">
-                  <motion.div
-                    className="h-[400px] sm:h-[600px] overflow-auto rounded-md border border-purple-400/30 touch-auto"
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
-                  >
+                  <div className="h-[400px] sm:h-[600px] overflow-y-auto rounded-md border border-purple-400/30 touch-auto fancy-scrollbar">
                     <ResumePreview resumeData={resumeData} template={selectedTemplate} />
-                  </motion.div>
+                  </div>
                 </CardContent>
                 <CardFooter className="flex flex-col sm:flex-row justify-between gap-2 pt-4">
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
