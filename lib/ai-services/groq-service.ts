@@ -225,7 +225,7 @@ export async function analyzeTextSimilarity(text1: string, text2: string): Promi
 /**
  * Enhance bullet points using Groq AI
  */
-export async function enhanceBulletPoints(bulletPoints: string[], context: string): Promise<string[]> {
+export async function enhanceBulletPoints(bulletPoints: string[], context: string, jobDescription?: string): Promise<string[]> {
     try {
         // Ensure bulletPoints is an array
         if (!Array.isArray(bulletPoints)) {
