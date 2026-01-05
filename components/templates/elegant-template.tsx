@@ -175,6 +175,5 @@ export function ElegantTemplate({ resumeData }: ElegantTemplateProps) {
 
       {customization.sectionOrder.map((section) => renderSection(section))}
     </div>
-    </div >
   )
 }
