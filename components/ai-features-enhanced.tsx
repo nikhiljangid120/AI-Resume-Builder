@@ -152,7 +152,7 @@ export function AIFeaturesEnhanced({ resumeData, onDataChange, jobDescription }:
       toast({
         title: "Summary Generated",
         description: "Your professional summary has been generated successfully.",
-        variant: "success",
+        variant: "default",
       })
     } catch (error) {
       console.error("Error generating summary:", error)
@@ -225,7 +225,7 @@ export function AIFeaturesEnhanced({ resumeData, onDataChange, jobDescription }:
       toast({
         title: "Content Enhanced",
         description: "Your resume content has been enhanced successfully.",
-        variant: "success",
+        variant: "default",
       })
     } catch (error) {
       console.error("Error enhancing content:", error)
@@ -311,7 +311,7 @@ export function AIFeaturesEnhanced({ resumeData, onDataChange, jobDescription }:
       toast({
         title: "Analysis Complete",
         description: "Your resume has been analyzed for ATS compatibility.",
-        variant: "success",
+        variant: "default",
       })
     } catch (error) {
       console.error("Error analyzing resume:", error)
@@ -349,7 +349,7 @@ export function AIFeaturesEnhanced({ resumeData, onDataChange, jobDescription }:
       toast({
         title: "Summary Applied",
         description: "The generated summary has been applied to your resume.",
-        variant: "success",
+        variant: "default",
       })
     }
   }
@@ -364,7 +364,7 @@ export function AIFeaturesEnhanced({ resumeData, onDataChange, jobDescription }:
       toast({
         title: "Enhancements Applied",
         description: "The enhanced bullet points have been applied to your resume.",
-        variant: "success",
+        variant: "default",
       })
     }
   }
