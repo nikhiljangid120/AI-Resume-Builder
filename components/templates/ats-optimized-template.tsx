@@ -33,39 +33,18 @@ export function ATSOptimizedTemplate({ resumeData }: ATSOptimizedTemplateProps) 
     }
   }
 
-  return (
-    <div
-      className={`flex h-full flex-col ${getFontSizeClass()}`}
-      style={{
-        fontFamily: customization.fontFamily,
-        color: "#000000",
-      }}
-    >
-      {/* Header - Simple and clear for ATS */}
-      <header className="mb-6">
-        <h1 className="mb-1 text-2xl font-bold">{personalInfo.name}</h1>
-        <h2 className="mb-3 text-lg font-medium">{personalInfo.title}</h2>
-
-        <div className="space-y-1 text-sm">
-          {personalInfo.email && <div>Email: {personalInfo.email}</div>}
-          {personalInfo.phone && <div>Phone: {personalInfo.phone}</div>}
-          {personalInfo.location && <div>Location: {personalInfo.location}</div>}
-          {personalInfo.website && <div>Website: {personalInfo.website}</div>}
-        </div>
-      </header>
-
-      <div className={getSpacingClass()}>
-        {/* Summary */}
-        {personalInfo.summary && (
-          <section>
+  const renderSection = (section: string) => {
+    switch (section) {
+      case "personalInfo":
+        return personalInfo.summary && (
+          <section key="personalInfo">
             <h3 className="mb-2 text-lg font-bold">Professional Summary</h3>
             <p className="text-sm">{personalInfo.summary}</p>
           </section>
-        )}
-
-        {/* Skills - Using plain text for better ATS parsing */}
-        {skills.length > 0 && (
-          <section>
+        )
+      case "skills":
+        return skills.length > 0 && (
+          <section key="skills">
             <h3 className="mb-2 text-lg font-bold">Skills</h3>
             <div className="space-y-2">
               {skills.map((category, index) => (
@@ -76,11 +55,10 @@ export function ATSOptimizedTemplate({ resumeData }: ATSOptimizedTemplateProps) 
               ))}
             </div>
           </section>
-        )}
-
-        {/* Experience */}
-        {experience.length > 0 && (
-          <section>
+        )
+      case "experience":
+        return experience.length > 0 && (
+          <section key="experience">
             <h3 className="mb-2 text-lg font-bold">Professional Experience</h3>
             <div className="space-y-4">
               {experience.map((exp, index) => (
@@ -103,11 +81,10 @@ export function ATSOptimizedTemplate({ resumeData }: ATSOptimizedTemplateProps) 
               ))}
             </div>
           </section>
-        )}
-
-        {/* Education */}
-        {education.length > 0 && (
-          <section>
+        )
+      case "education":
+        return education.length > 0 && (
+          <section key="education">
             <h3 className="mb-2 text-lg font-bold">Education</h3>
             <div className="space-y-4">
               {education.map((edu, index) => (
@@ -124,11 +101,10 @@ export function ATSOptimizedTemplate({ resumeData }: ATSOptimizedTemplateProps) 
               ))}
             </div>
           </section>
-        )}
-
-        {/* Projects */}
-        {projects.length > 0 && (
-          <section>
+        )
+      case "projects":
+        return projects.length > 0 && (
+          <section key="projects">
             <h3 className="mb-2 text-lg font-bold">Projects</h3>
             <div className="space-y-4">
               {projects.map((project, index) => (
@@ -156,7 +132,35 @@ export function ATSOptimizedTemplate({ resumeData }: ATSOptimizedTemplateProps) 
               ))}
             </div>
           </section>
-        )}
+        )
+      default:
+        return null
+    }
+  }
+
+  return (
+    <div
+      className={`flex h-full flex-col ${getFontSizeClass()}`}
+      style={{
+        fontFamily: customization.fontFamily,
+        color: "#000000",
+      }}
+    >
+      {/* Header - Simple and clear for ATS */}
+      <header className="mb-6">
+        <h1 className="mb-1 text-2xl font-bold">{personalInfo.name}</h1>
+        <h2 className="mb-3 text-lg font-medium">{personalInfo.title}</h2>
+
+        <div className="space-y-1 text-sm">
+          {personalInfo.email && <div>Email: {personalInfo.email}</div>}
+          {personalInfo.phone && <div>Phone: {personalInfo.phone}</div>}
+          {personalInfo.location && <div>Location: {personalInfo.location}</div>}
+          {personalInfo.website && <div>Website: {personalInfo.website}</div>}
+        </div>
+      </header>
+
+      <div className={getSpacingClass()}>
+        {customization.sectionOrder.map((section) => renderSection(section))}
       </div>
     </div>
   )
