@@ -81,22 +81,29 @@ export interface ThemeOption {
   primaryColor: string
   secondaryColor: string
   thumbnail?: string
+  accentColor?: string
+  darkMode?: { primaryColor: string; secondaryColor: string }
+  cssVariables?: Record<string, string>
 }
 
 export interface FontOption {
   name: string
   value: string
   thumbnail?: string
+  weights?: string[]
+  googleFont?: string
 }
 
 export interface SpacingOption {
   name: string
   value: string
   thumbnail?: string
+  css?: Record<string, string>
 }
 
 export interface FontSizeOption {
   name: string
   value: string
   thumbnail?: string
+  css?: { base: string; heading: string }
 }
