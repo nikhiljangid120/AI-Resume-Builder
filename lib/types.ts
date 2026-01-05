@@ -59,8 +59,12 @@ export interface ResumeData {
 export interface Template {
   id: string
   name: string
-  description: string
+  description?: string
   thumbnail?: string
+  previewUrl?: string
+  category?: string[]
+  compatibility?: { ats: boolean; print: boolean; digital: boolean }
+  recommendedFor?: string[]
 }
 
 export interface ResumeCustomization {
