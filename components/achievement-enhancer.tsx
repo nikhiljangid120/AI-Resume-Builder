@@ -40,7 +40,7 @@ function useMediaQuery(query: string): boolean {
 
     // Add event listener
     mediaQuery.addEventListener("change", handler);
-    
+
     // Clean up
     return () => {
       mediaQuery.removeEventListener("change", handler);
@@ -64,7 +64,7 @@ export function AchievementEnhancer({
   // Media queries for responsive design
   const isMobile = useMediaQuery("(max-width: 480px)")
   const isTablet = useMediaQuery("(min-width: 481px) and (max-width: 768px)")
-  
+
   // Initialize with a default empty achievement
   const [achievements, setAchievements] = useState<string[]>(
     Array.isArray(initialAchievements) && initialAchievements.length > 0
@@ -85,7 +85,7 @@ export function AchievementEnhancer({
   const [error, setError] = useState<string | null>(null)
   const [enhancementStyle, setEnhancementStyle] = useState<"metrics" | "impact" | "technical" | "leadership">("metrics")
   const { toast } = useToast()
-  
+
   // Ref for scrolling to results
   const resultsSectionRef = useRef<HTMLDivElement>(null)
 
@@ -139,16 +139,16 @@ export function AchievementEnhancer({
       toast({
         title: "Achievements Enhanced",
         description: "Your achievements have been enhanced with AI.",
-        variant: "success",
+        variant: "default",
       })
-      
+
       // Scroll to results after a short delay to ensure they're rendered
       setTimeout(() => {
         if (resultsSectionRef.current) {
           resultsSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
       }, 300);
-      
+
     } catch (error) {
       console.error("Error enhancing achievements:", error)
       setError("Failed to enhance achievements. Please try again.")
@@ -168,7 +168,7 @@ export function AchievementEnhancer({
     toast({
       title: "Copied to Clipboard",
       description: "Achievement copied to clipboard.",
-      variant: "success",
+      variant: "default",
     })
   }
 
@@ -178,7 +178,7 @@ export function AchievementEnhancer({
       toast({
         title: "Applied All Enhancements",
         description: "All enhanced achievements have been applied to your resume.",
-        variant: "success",
+        variant: "default",
       })
     }
   }
@@ -203,8 +203,8 @@ export function AchievementEnhancer({
         </CardHeader>
         <CardContent className="space-y-3 sm:space-y-4 px-3 sm:px-4 md:px-6">
           <div className="space-y-1 sm:space-y-2">
-            <Label 
-              htmlFor="job-role" 
+            <Label
+              htmlFor="job-role"
               className="text-xs sm:text-sm md:text-base font-medium block"
             >
               Your Job Role/Title
@@ -231,33 +231,33 @@ export function AchievementEnhancer({
               className="w-full"
             >
               <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4 gap-1 p-1 h-auto min-h-8 sm:min-h-9 md:min-h-10">
-                <TabsTrigger 
-                  value="metrics" 
-                  disabled={isEnhancing} 
+                <TabsTrigger
+                  value="metrics"
+                  disabled={isEnhancing}
                   className="text-xs sm:text-sm h-7 sm:h-8 md:h-9 py-0 px-1 sm:px-2 flex items-center justify-center"
                 >
                   <BarChart className="h-3 w-3 sm:h-3.5 sm:w-3.5 md:h-4 md:w-4 mr-1" />
                   <span className={isMobile ? "hidden sm:inline" : ""}>Metrics</span>
                 </TabsTrigger>
-                <TabsTrigger 
-                  value="impact" 
-                  disabled={isEnhancing} 
+                <TabsTrigger
+                  value="impact"
+                  disabled={isEnhancing}
                   className="text-xs sm:text-sm h-7 sm:h-8 md:h-9 py-0 px-1 sm:px-2 flex items-center justify-center"
                 >
                   <Zap className="h-3 w-3 sm:h-3.5 sm:w-3.5 md:h-4 md:w-4 mr-1" />
                   <span className={isMobile ? "hidden sm:inline" : ""}>Impact</span>
                 </TabsTrigger>
-                <TabsTrigger 
-                  value="technical" 
-                  disabled={isEnhancing} 
+                <TabsTrigger
+                  value="technical"
+                  disabled={isEnhancing}
                   className="text-xs sm:text-sm h-7 sm:h-8 md:h-9 py-0 px-1 sm:px-2 flex items-center justify-center"
                 >
                   <Code className="h-3 w-3 sm:h-3.5 sm:w-3.5 md:h-4 md:w-4 mr-1" />
                   <span className={isMobile ? "hidden sm:inline" : ""}>Technical</span>
                 </TabsTrigger>
-                <TabsTrigger 
-                  value="leadership" 
-                  disabled={isEnhancing} 
+                <TabsTrigger
+                  value="leadership"
+                  disabled={isEnhancing}
                   className="text-xs sm:text-sm h-7 sm:h-8 md:h-9 py-0 px-1 sm:px-2 flex items-center justify-center"
                 >
                   <Users className="h-3 w-3 sm:h-3.5 sm:w-3.5 md:h-4 md:w-4 mr-1" />
@@ -340,7 +340,7 @@ export function AchievementEnhancer({
           </Button>
 
           {enhancedAchievements.length > 0 && (
-            <div 
+            <div
               ref={resultsSectionRef}
               className="space-y-3 rounded-lg border border-amber-200 bg-amber-50 p-2 sm:p-3 md:p-4 dark:border-amber-900 dark:bg-amber-950"
             >

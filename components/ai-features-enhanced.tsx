@@ -374,7 +374,7 @@ export function AIFeaturesEnhanced({ resumeData, onDataChange, jobDescription }:
     toast({
       title: "Copied to Clipboard",
       description: "Text has been copied to your clipboard.",
-      variant: "success",
+      variant: "default",
     })
   }
 
@@ -413,7 +413,7 @@ ${analysisResult.join('\n\n')}
     toast({
       title: "Analysis Exported",
       description: "The analysis report has been downloaded as a text file.",
-      variant: "success",
+      variant: "default",
     })
   }
 

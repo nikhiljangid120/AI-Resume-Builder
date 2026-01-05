@@ -94,7 +94,7 @@ export function AIFeatures({ resumeData, onDataChange, jobDescription }: AIFeatu
       toast({
         title: "Summary Generated",
         description: "Your professional summary has been updated successfully.",
-        variant: "success",
+        variant: "default",
       })
     } catch (error) {
       console.error("Error generating summary:", error)
@@ -185,7 +185,7 @@ export function AIFeatures({ resumeData, onDataChange, jobDescription }: AIFeatu
       toast({
         title: "Content Enhanced",
         description: `Successfully enhanced ${enhancementResultsTemp.length} sections of your resume.`,
-        variant: "success",
+        variant: "default",
       })
     } catch (error) {
       console.error("Error enhancing content:", error)
@@ -229,7 +229,7 @@ export function AIFeatures({ resumeData, onDataChange, jobDescription }: AIFeatu
       toast({
         title: "Analysis Complete",
         description: "Your resume has been analyzed in detail.",
-        variant: "success",
+        variant: "default",
       })
     } catch (error) {
       console.error("Error analyzing resume:", error)
@@ -254,7 +254,7 @@ export function AIFeatures({ resumeData, onDataChange, jobDescription }: AIFeatu
     toast({
       title: "Copied to Clipboard",
       description: "Text has been copied to your clipboard.",
-      variant: "success",
+      variant: "default",
     })
   }
 

@@ -23,7 +23,7 @@ interface DetailedResumeAnalyticsProps {
 export function DetailedResumeAnalytics({
   resumeData,
   jobDescription = "",
-  onJobDescriptionChange = () => {},
+  onJobDescriptionChange = () => { },
 }: DetailedResumeAnalyticsProps) {
   const [isAnalyzing, setIsAnalyzing] = useState(false)
   const [activeTab, setActiveTab] = useState("overview")
@@ -99,7 +99,7 @@ export function DetailedResumeAnalytics({
       toast({
         title: "Analysis Complete",
         description: "Your resume has been analyzed in detail against the job description.",
-        variant: "success",
+        variant: "default",
       })
     } catch (error) {
       console.error("Error analyzing resume:", error)
@@ -405,13 +405,12 @@ export function DetailedResumeAnalytics({
                         strokeWidth="8"
                       />
                       <circle
-                        className={`${
-                          overallScore >= 80
+                        className={`${overallScore >= 80
                             ? "stroke-green-500"
                             : overallScore >= 60
                               ? "stroke-yellow-500"
                               : "stroke-red-500"
-                        }`}
+                          }`}
                         cx="50"
                         cy="50"
                         r="45"
