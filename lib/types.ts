@@ -68,13 +68,13 @@ export interface Template {
 }
 
 export interface ResumeCustomization {
-  primaryColor?: string
-  secondaryColor?: string
-  fontFamily?: string
-  fontSize?: string
-  spacing?: string
-  showBulletPoints?: boolean
-  sectionOrder?: string[]
+  primaryColor: string
+  secondaryColor: string
+  fontFamily: string
+  fontSize: string
+  spacing: string
+  showBulletPoints: boolean
+  sectionOrder: string[]
   layout?: string
   headerStyle?: string
   sectionStyle?: string

@@ -120,7 +120,7 @@ export function AcademicTemplate({ resumeData }: AcademicTemplateProps) {
             </header>
 
             <div className="px-8 space-y-6">
-                {customization.sectionOrder.map((section) => renderSection(section))}
+                {customization.sectionOrder?.map((section) => renderSection(section))}
             </div>
         </div>
     )
