@@ -102,7 +102,7 @@ export function ResumePreviewModal({ resumeData, template, open, onOpenChange }:
       toast({
         title: "Export Successful",
         description: "Your resume has been exported to PDF successfully!",
-        variant: "success",
+        variant: "default",
       })
     } catch (error) {
       console.error("Error exporting PDF:", error)
@@ -159,7 +159,7 @@ export function ResumePreviewModal({ resumeData, template, open, onOpenChange }:
       toast({
         title: "Link Copied",
         description: "Resume link copied to clipboard!",
-        variant: "success",
+        variant: "default",
       })
     } catch (error) {
       console.error("Copy failed:", error)

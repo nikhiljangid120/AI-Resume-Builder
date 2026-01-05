@@ -1,6 +1,6 @@
 import type { ResumeData, Template } from "./types"
 
-export async function exportResumeToPDF(resumeData: ResumeData, template: Template): Promise<string> {
+export async function exportResumeToPDF(resumeData: ResumeData, template: Template, orientation: "portrait" | "landscape" = "portrait"): Promise<string> {
   try {
     // Dynamically import html2canvas and jsPDF to avoid SSR issues
     const [html2canvasModule, jsPDFModule] = await Promise.all([import("html2canvas"), import("jspdf")])
@@ -48,7 +48,7 @@ export async function exportResumeToPDF(resumeData: ResumeData, template: Templa
 
           // Create PDF with proper orientation
           const pdf = new jsPDF({
-            orientation: imgHeight > pageHeight ? "portrait" : "portrait",
+            orientation: orientation,
             unit: "mm",
             format: "a4",
           })
