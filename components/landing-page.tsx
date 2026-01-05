@@ -1053,7 +1053,7 @@ export function LandingPage() {
                     <Github className="h-6 w-6" />
                   </a>
                   <a
-                    href="https://linkedin.com/in/jangidnikhil"
+                    href="https://www.linkedin.com/in/nikhil-jangid-b84360264/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-600 hover:text-purple-600 dark:text-gray-300 dark:hover:text-purple-400 social-icon"
