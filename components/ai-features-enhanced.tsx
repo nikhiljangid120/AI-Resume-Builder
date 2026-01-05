@@ -660,7 +660,7 @@ ${analysisResult.join('\n\n')}
                   <div className="text-center">
                     <div className="text-xs text-gray-500 dark:text-gray-400">ATS Compatibility</div>
                     <div className="mt-1 flex items-center justify-center gap-1">
-                      <Progress value={95} className="h-2 w-16 bg-gray-200 dark:bg-gray-700" indicatorColor="bg-purple-500" />
+                      <Progress value={95} className="h-2 w-16 bg-gray-200 dark:bg-gray-700" indicatorClassName="bg-purple-500" />
                       <span className="text-sm font-medium text-purple-600 dark:text-purple-400">95%</span>
                     </div>
                   </div>
@@ -764,21 +764,21 @@ ${analysisResult.join('\n\n')}
                   <div className="text-center">
                     <div className="text-xs text-gray-500 dark:text-gray-400">Relevance</div>
                     <div className="mt-1 flex items-center justify-center gap-1">
-                      <Progress value={92} className="h-2 w-16 bg-gray-200 dark:bg-gray-700" indicatorColor="bg-green-500" />
+                      <Progress value={92} className="h-2 w-16 bg-gray-200 dark:bg-gray-700" indicatorClassName="bg-green-500" />
                       <span className="text-sm font-medium text-green-600 dark:text-green-400">92%</span>
                     </div>
                   </div>
                   <div className="text-center">
                     <div className="text-xs text-gray-500 dark:text-gray-400">Keyword Density</div>
                     <div className="mt-1 flex items-center justify-center gap-1">
-                      <Progress value={88} className="h-2 w-16 bg-gray-200 dark:bg-gray-700" indicatorColor="bg-blue-500" />
+                      <Progress value={88} className="h-2 w-16 bg-gray-200 dark:bg-gray-700" indicatorClassName="bg-blue-500" />
                       <span className="text-sm font-medium text-blue-600 dark:text-blue-400">88%</span>
                     </div>
                   </div>
                   <div className="text-center">
                     <div className="text-xs text-gray-500 dark:text-gray-400">Conciseness</div>
                     <div className="mt-1 flex items-center justify-center gap-1">
-                      <Progress value={95} className="h-2 w-16 bg-gray-200 dark:bg-gray-700" indicatorColor="bg-purple-500" />
+                      <Progress value={95} className="h-2 w-16 bg-gray-200 dark:bg-gray-700" indicatorClassName="bg-purple-500" />
                       <span className="text-sm font-medium text-purple-600 dark:text-purple-400">95%</span>
                     </div>
                   </div>
