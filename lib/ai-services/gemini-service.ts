@@ -6,7 +6,7 @@ const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || ""
 const genAI = new GoogleGenerativeAI(apiKey)
 
 // Get the generative model - updated to use the correct model name
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-001" })
+const MODELS = ["gemini-2.0-flash-exp", "gemini-1.5-flash", "gemini-1.5-pro", "gemini-1.0-pro"]
 
 export interface GenerationOptions {
   temperature?: number
@@ -24,7 +24,7 @@ function checkApiKey() {
 }
 
 /**
- * Generate text using the Gemini API
+ * Generate text using the Gemini API with robust fallback
  */
 export async function generateWithGemini(
   prompt: string,
@@ -35,58 +35,63 @@ export async function generateWithGemini(
     throw new Error("API key is missing")
   }
 
-  try {
-    // Set generation config with defaults
-    const generationConfig = {
-      temperature: options.temperature ?? 0.7,
-      topK: options.topK ?? 40,
-      topP: options.topP ?? 0.95,
-      maxOutputTokens: options.maxOutputTokens ?? 1024,
-    }
+  let lastError: any = null
 
-    // Create chat session if system prompt is provided
-    if (systemPrompt) {
-      const chat = model.startChat({
-        generationConfig,
-        history: [
-          {
-            role: "user",
-            parts: [{ text: systemPrompt }],
-          },
-          {
-            role: "model",
-            parts: [{ text: "I'll help you with that." }],
-          },
-        ],
-      })
-
-      const result = await chat.sendMessage(prompt)
-      const response = result.response
-      return response.text()
-    } else {
-      // Use direct generation if no system prompt
-      const result = await model.generateContent({
-        contents: [{ role: "user", parts: [{ text: prompt }] }],
-        generationConfig,
-      })
-      const response = result.response
-      return response.text()
-    }
-  } catch (error) {
-    console.error("Error generating with Gemini:", error)
-
-    // Try fallback model if primary model fails
+  // Try each model in sequence
+  for (const modelName of MODELS) {
     try {
-      console.log("Attempting with fallback model gemini-pro...")
-      const fallbackModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash-001" })
-      const result = await fallbackModel.generateContent(prompt)
-      const response = result.response
-      return response.text()
-    } catch (fallbackError) {
-      console.error("Fallback model also failed:", fallbackError)
-      throw new Error("Failed to generate content. Please try again.")
+      console.log(`Attempting generation with model: ${modelName}`)
+      const model = genAI.getGenerativeModel({ model: modelName })
+
+      // Set generation config with defaults
+      const generationConfig = {
+        temperature: options.temperature ?? 0.7,
+        topK: options.topK ?? 40,
+        topP: options.topP ?? 0.95,
+        maxOutputTokens: options.maxOutputTokens ?? 1024,
+      }
+
+      // Create chat session if system prompt is provided
+      if (systemPrompt) {
+        const chat = model.startChat({
+          generationConfig,
+          history: [
+            {
+              role: "user",
+              parts: [{ text: systemPrompt }],
+            },
+            {
+              role: "model",
+              parts: [{ text: "I'll help you with that." }],
+            },
+          ],
+        })
+
+        const result = await chat.sendMessage(prompt)
+        const response = result.response
+        return response.text()
+      } else {
+        // Use direct generation if no system prompt
+        const result = await model.generateContent({
+          contents: [{ role: "user", parts: [{ text: prompt }] }],
+          generationConfig,
+        })
+        const response = result.response
+        return response.text()
+      }
+    } catch (error: any) {
+      console.warn(`Failed with model ${modelName}:`, error.message || error)
+      lastError = error
+
+      // If error is not 404 (Not Found) and not 503 (Service Unavailable), it might be a key issue or strict error
+      // But we generally continue to next model unless we're out of models
+      continue
     }
   }
+
+  // If we get here, all models failed
+  console.error("All models failed. Last error:", lastError)
+  throw new Error("Failed to generate content with any available Gemini model. Please check your API key and region.")
 }
 
 /**
