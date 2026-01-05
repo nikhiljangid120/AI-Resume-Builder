@@ -39,46 +39,20 @@ export function MinimalTemplate({ resumeData }: MinimalTemplateProps) {
     }
   }
 
-  return (
-    <div
-      className={`min-h-screen bg-white p-4 sm:p-6 md:p-8 print:p-0 mx-auto max-w-3xl ${getFontSizeClass()} transition-all duration-300`}
-      style={{ fontFamily: customization.fontFamily, color: "#1F2937" }}
-    >
-      {/* Header */}
-      <header className="mb-6 border-b border-gray-200 pb-4 print:border-none">
-        <h1 
-          className="text-2xl sm:text-3xl font-bold mb-2 tracking-tight"
-          style={{ color: customization.primaryColor }}
-        >
-          {personalInfo.name}
-        </h1>
-        <h2 className="text-lg sm:text-xl font-medium mb-3 text-gray-600">
-          {personalInfo.title}
-        </h2>
-        <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-gray-600">
-          {personalInfo.email && <span>{personalInfo.email}</span>}
-          {personalInfo.phone && <span>{personalInfo.phone}</span>}
-          {personalInfo.location && <span>{personalInfo.location}</span>}
-          {personalInfo.website && (
-            <a href={personalInfo.website} target="_blank" rel="noopener noreferrer">{personalInfo.website}</a>
-          )}
-        </div>
-      </header>
-
-      <div className={getSpacingClass()}>
-        {/* Summary */}
-        {personalInfo.summary && (
-          <section>
+  const renderSection = (section: string) => {
+    switch (section) {
+      case "personalInfo":
+        return personalInfo.summary && (
+          <section key="personalInfo">
             <h3 className="text-lg font-semibold mb-2" style={{ color: customization.primaryColor }}>
               Profile
             </h3>
             <p className="text-gray-600 leading-relaxed">{personalInfo.summary}</p>
           </section>
-        )}
-
-        {/* Experience */}
-        {experience.length > 0 && (
-          <section>
+        )
+      case "experience":
+        return experience.length > 0 && (
+          <section key="experience">
             <h3 className="text-lg font-semibold mb-2" style={{ color: customization.primaryColor }}>
               Experience
             </h3>
@@ -104,11 +78,10 @@ export function MinimalTemplate({ resumeData }: MinimalTemplateProps) {
               ))}
             </div>
           </section>
-        )}
-
-        {/* Education */}
-        {education.length > 0 && (
-          <section>
+        )
+      case "education":
+        return education.length > 0 && (
+          <section key="education">
             <h3 className="text-lg font-semibold mb-2" style={{ color: customization.primaryColor }}>
               Education
             </h3>
@@ -129,11 +102,10 @@ export function MinimalTemplate({ resumeData }: MinimalTemplateProps) {
               ))}
             </div>
           </section>
-        )}
-
-        {/* Skills */}
-        {skills.length > 0 && (
-          <section>
+        )
+      case "skills":
+        return skills.length > 0 && (
+          <section key="skills">
             <h3 className="text-lg font-semibold mb-2" style={{ color: customization.primaryColor }}>
               Skills
             </h3>
@@ -146,11 +118,10 @@ export function MinimalTemplate({ resumeData }: MinimalTemplateProps) {
               ))}
             </div>
           </section>
-        )}
-
-        {/* Projects */}
-        {projects.length > 0 && (
-          <section>
+        )
+      case "projects":
+        return projects.length > 0 && (
+          <section key="projects">
             <h3 className="text-lg font-semibold mb-2" style={{ color: customization.primaryColor }}>
               Projects
             </h3>
@@ -182,7 +153,40 @@ export function MinimalTemplate({ resumeData }: MinimalTemplateProps) {
               ))}
             </div>
           </section>
-        )}
+        )
+      default:
+        return null
+    }
+  }
+
+  return (
+    <div
+      className={`min-h-screen bg-white p-4 sm:p-6 md:p-8 print:p-0 mx-auto max-w-3xl ${getFontSizeClass()} transition-all duration-300`}
+      style={{ fontFamily: customization.fontFamily, color: "#1F2937" }}
+    >
+      {/* Header */}
+      <header className="mb-6 border-b border-gray-200 pb-4 print:border-none">
+        <h1
+          className="text-2xl sm:text-3xl font-bold mb-2 tracking-tight"
+          style={{ color: customization.primaryColor }}
+        >
+          {personalInfo.name}
+        </h1>
+        <h2 className="text-lg sm:text-xl font-medium mb-3 text-gray-600">
+          {personalInfo.title}
+        </h2>
+        <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-gray-600">
+          {personalInfo.email && <span>{personalInfo.email}</span>}
+          {personalInfo.phone && <span>{personalInfo.phone}</span>}
+          {personalInfo.location && <span>{personalInfo.location}</span>}
+          {personalInfo.website && (
+            <a href={personalInfo.website} target="_blank" rel="noopener noreferrer">{personalInfo.website}</a>
+          )}
+        </div>
+      </header>
+
+      <div className={getSpacingClass()}>
+        {customization.sectionOrder.map((section) => renderSection(section))}
       </div>
 
       <style jsx>{`
