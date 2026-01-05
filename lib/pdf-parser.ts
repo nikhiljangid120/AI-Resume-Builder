@@ -19,6 +19,7 @@ export async function parsePdfResume(file: File): Promise<string> {
       const pdfjs = await import("pdfjs-dist")
 
       // Set worker source
+      // @ts-ignore
       const pdfjsWorker = await import("pdfjs-dist/build/pdf.worker.mjs")
       pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker.default
 
