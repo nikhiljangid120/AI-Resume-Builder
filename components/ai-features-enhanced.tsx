@@ -486,7 +486,7 @@ ${analysisResult.join('\n\n')}
       )}
 
       {jobDescriptionAlert && (
-        <Alert variant="warning" className="mx-4 mb-4 border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-300">
+        <Alert variant="default" className="mx-4 mb-4 border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-300">
           <Info className="h-4 w-4" />
           <AlertTitle>Better Results Available</AlertTitle>
           <AlertDescription>
