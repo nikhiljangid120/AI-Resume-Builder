@@ -9,6 +9,84 @@ export function ProfessionalTemplate({ resumeData }: ProfessionalTemplateProps) 
     const { personalInfo, skills, experience, education, projects } = resumeData
     const customization = resumeData.customization || defaultCustomization
 
+    const renderSection = (section: string) => {
+        switch (section) {
+            case "personalInfo":
+                return personalInfo.summary && (
+                    <section key="summary" className="mb-8">
+                        <h3 className="mb-3 text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <span className="w-2 h-8 rounded-sm" style={{ backgroundColor: customization.primaryColor }}></span>
+                            Summary
+                        </h3>
+                        <p className="text-slate-600 leading-relaxed text-justify">{personalInfo.summary}</p>
+                    </section>
+                )
+            case "experience":
+                return experience.length > 0 && (
+                    <section key="experience" className="mb-8">
+                        <h3 className="mb-6 text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <span className="w-2 h-8 rounded-sm" style={{ backgroundColor: customization.primaryColor }}></span>
+                            Professional Experience
+                        </h3>
+                        <div className="space-y-8 relative">
+                            <div className="absolute left-0 top-2 bottom-0 w-0.5 bg-slate-200 ml-1"></div>
+                            {experience.map((exp, index) => (
+                                <div key={index} className="pl-6 relative">
+                                    <div className="absolute left-0 top-1.5 w-2.5 h-2.5 rounded-full border-2 bg-white" style={{ borderColor: customization.primaryColor, marginLeft: "-4px" }}></div>
+                                    <div className="flex justify-between items-baseline mb-1">
+                                        <h4 className="text-lg font-bold text-slate-800">{exp.position}</h4>
+                                        <span className="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-600 whitespace-nowrap">{exp.startDate} - {exp.endDate}</span>
+                                    </div>
+                                    <div className="text-base font-medium mb-3" style={{ color: customization.primaryColor }}>{exp.company}, {exp.location}</div>
+
+                                    {exp.description && <p className="mb-2 text-sm text-slate-600">{exp.description}</p>}
+                                    {exp.achievements.length > 0 && (
+                                        <ul className="text-sm text-slate-600 list-none space-y-1.5">
+                                            {exp.achievements.map((achievement, achievementIndex) => (
+                                                <li key={achievementIndex} className="relative pl-3 before:content-[''] before:absolute before:left-0 before:top-2 before:w-1 before:h-1 before:rounded-full before:bg-slate-400">
+                                                    {achievement}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                )
+            case "projects":
+                return projects.length > 0 && (
+                    <section key="projects">
+                        <h3 className="mb-6 text-lg font-bold text-slate-800 flex items-center gap-2">
+                            <span className="w-2 h-8 rounded-sm" style={{ backgroundColor: customization.primaryColor }}></span>
+                            Key Projects
+                        </h3>
+                        <div className="grid grid-cols-1 gap-6">
+                            {projects.map((project, index) => (
+                                <div key={index} className="bg-slate-50 p-4 rounded border border-slate-100">
+                                    <div className="flex justify-between items-center mb-2">
+                                        <h4 className="font-bold text-slate-800">{project.name}</h4>
+                                        {(project.startDate || project.endDate) && (
+                                            <span className="text-xs text-slate-500">{project.startDate} - {project.endDate}</span>
+                                        )}
+                                    </div>
+                                    {project.technologies && (
+                                        <div className="text-xs font-medium text-slate-500 mb-2 font-mono">{project.technologies}</div>
+                                    )}
+                                    <p className="text-sm text-slate-600 mb-2">{project.description}</p>
+                                    {project.link && (
+                                        <a href={project.link} className="text-xs font-semibold hover:underline" style={{ color: customization.primaryColor }}>View Project &rarr;</a>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                )
+            default:
+                return null
+        }
+    }
+
     return (
         <div
             className="flex h-full flex-col bg-white"
@@ -95,79 +173,7 @@ export function ProfessionalTemplate({ resumeData }: ProfessionalTemplateProps) 
 
                 {/* Main Content */}
                 <main className="w-full md:w-2/3 p-8">
-                    {/* Summary */}
-                    {personalInfo.summary && (
-                        <section className="mb-8">
-                            <h3 className="mb-3 text-lg font-bold text-slate-800 flex items-center gap-2">
-                                <span className="w-2 h-8 rounded-sm" style={{ backgroundColor: customization.primaryColor }}></span>
-                                Summary
-                            </h3>
-                            <p className="text-slate-600 leading-relaxed text-justify">{personalInfo.summary}</p>
-                        </section>
-                    )}
-
-                    {/* Experience */}
-                    {experience.length > 0 && (
-                        <section className="mb-8">
-                            <h3 className="mb-6 text-lg font-bold text-slate-800 flex items-center gap-2">
-                                <span className="w-2 h-8 rounded-sm" style={{ backgroundColor: customization.primaryColor }}></span>
-                                Professional Experience
-                            </h3>
-                            <div className="space-y-8 relative">
-                                <div className="absolute left-0 top-2 bottom-0 w-0.5 bg-slate-200 ml-1"></div>
-                                {experience.map((exp, index) => (
-                                    <div key={index} className="pl-6 relative">
-                                        <div className="absolute left-0 top-1.5 w-2.5 h-2.5 rounded-full border-2 bg-white" style={{ borderColor: customization.primaryColor, marginLeft: "-4px" }}></div>
-                                        <div className="flex justify-between items-baseline mb-1">
-                                            <h4 className="text-lg font-bold text-slate-800">{exp.position}</h4>
-                                            <span className="text-xs font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-600 whitespace-nowrap">{exp.startDate} - {exp.endDate}</span>
-                                        </div>
-                                        <div className="text-base font-medium mb-3" style={{ color: customization.primaryColor }}>{exp.company}, {exp.location}</div>
-
-                                        {exp.description && <p className="mb-2 text-sm text-slate-600">{exp.description}</p>}
-                                        {exp.achievements.length > 0 && (
-                                            <ul className="text-sm text-slate-600 list-none space-y-1.5">
-                                                {exp.achievements.map((achievement, achievementIndex) => (
-                                                    <li key={achievementIndex} className="relative pl-3 before:content-[''] before:absolute before:left-0 before:top-2 before:w-1 before:h-1 before:rounded-full before:bg-slate-400">
-                                                        {achievement}
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        )}
-                                    </div>
-                                ))}
-                            </div>
-                        </section>
-                    )}
-
-                    {/* Projects */}
-                    {projects.length > 0 && (
-                        <section>
-                            <h3 className="mb-6 text-lg font-bold text-slate-800 flex items-center gap-2">
-                                <span className="w-2 h-8 rounded-sm" style={{ backgroundColor: customization.primaryColor }}></span>
-                                Key Projects
-                            </h3>
-                            <div className="grid grid-cols-1 gap-6">
-                                {projects.map((project, index) => (
-                                    <div key={index} className="bg-slate-50 p-4 rounded border border-slate-100">
-                                        <div className="flex justify-between items-center mb-2">
-                                            <h4 className="font-bold text-slate-800">{project.name}</h4>
-                                            {(project.startDate || project.endDate) && (
-                                                <span className="text-xs text-slate-500">{project.startDate} - {project.endDate}</span>
-                                            )}
-                                        </div>
-                                        {project.technologies && (
-                                            <div className="text-xs font-medium text-slate-500 mb-2 font-mono">{project.technologies}</div>
-                                        )}
-                                        <p className="text-sm text-slate-600 mb-2">{project.description}</p>
-                                        {project.link && (
-                                            <a href={project.link} className="text-xs font-semibold hover:underline" style={{ color: customization.primaryColor }}>View Project &rarr;</a>
-                                        )}
-                                    </div>
-                                ))}
-                            </div>
-                        </section>
-                    )}
+                    {customization.sectionOrder.map((section) => renderSection(section))}
 
                 </main>
             </div>
