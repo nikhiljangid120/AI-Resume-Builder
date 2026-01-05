@@ -170,7 +170,7 @@ export function LandingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 relative">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 relative overflow-x-hidden">
       {/* Global Styles */}
       <style>{`
         @keyframes textFill {
@@ -647,8 +647,8 @@ export function LandingPage() {
                     key={index}
                     style={{ "--i": index } as any}
                     className={`${word === "ATS-Optimized"
-                        ? "ats-optimized"
-                        : "text-white dark:text-gray-100"
+                      ? "ats-optimized"
+                      : "text-white dark:text-gray-100"
                       } mx-1`}
                   >
                     {word}
@@ -1033,7 +1033,7 @@ export function LandingPage() {
               <div className="about-card rounded-xl p-6 text-center">
                 <div className="mb-6 h-32 w-32 mx-auto overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700 about-image">
                   <img
-                    src="https://media.licdn.com/dms/image/v2/D5603AQFNmeficTCeYg/profile-displayphoto-shrink_800_800/B56ZSt38T_HEAg-/0/1738083912231?e=1750291200&v=beta&t=5i95Jll2lLnb0Bl97AHisL0_lcr-O3dg2DBfCqnuJdM"
+                    src="/nikhil-profile.jpg"
                     alt="Nikhil Jangid"
                     className="h-full w-full object-cover transition-transform duration-300 transform hover:scale-105"
                   />
