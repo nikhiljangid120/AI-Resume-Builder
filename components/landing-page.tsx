@@ -61,7 +61,7 @@ export function LandingPage() {
     function type() {
       const currentLine = content[lineIndex]
       const text = currentLine.slice(0, charIndex)
-      resumeText.textContent = content.slice(0, lineIndex).join("") + text + "|"
+      resumeText!.textContent = content.slice(0, lineIndex).join("") + text + "|"
 
       if (!isDeleting && charIndex < currentLine.length) {
         charIndex++
