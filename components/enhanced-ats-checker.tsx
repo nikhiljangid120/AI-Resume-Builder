@@ -37,6 +37,7 @@ import {
   Cell,
   Legend,
 } from "recharts"
+import { motion } from "framer-motion"
 
 interface EnhancedATSCheckerProps {
   resumeData: ResumeData
@@ -258,12 +259,12 @@ export function EnhancedATSChecker({
       },
       ...(scoreResult.grammarScore !== undefined
         ? [
-            {
-              name: "Grammar",
-              score: isNaN(scoreResult.grammarScore) ? 0 : scoreResult.grammarScore,
-              fill: "#f59e0b",
-            },
-          ]
+          {
+            name: "Grammar",
+            score: isNaN(scoreResult.grammarScore) ? 0 : scoreResult.grammarScore,
+            fill: "#f59e0b",
+          },
+        ]
         : []),
     ]
   }
@@ -357,7 +358,7 @@ export function EnhancedATSChecker({
         ideal: "60-70",
         status:
           analysisDetails.readabilityMetrics.fleschReadingEase >= 60 &&
-          analysisDetails.readabilityMetrics.fleschReadingEase <= 70
+            analysisDetails.readabilityMetrics.fleschReadingEase <= 70
             ? "good"
             : "needs improvement",
       },
@@ -367,7 +368,7 @@ export function EnhancedATSChecker({
         ideal: "15-20 words",
         status:
           analysisDetails.readabilityMetrics.avgSentenceLength >= 15 &&
-          analysisDetails.readabilityMetrics.avgSentenceLength <= 20
+            analysisDetails.readabilityMetrics.avgSentenceLength <= 20
             ? "good"
             : "needs improvement",
       },
@@ -377,7 +378,7 @@ export function EnhancedATSChecker({
         ideal: "4.5-5.5 letters",
         status:
           analysisDetails.readabilityMetrics.avgWordLength >= 4.5 &&
-          analysisDetails.readabilityMetrics.avgWordLength <= 5.5
+            analysisDetails.readabilityMetrics.avgWordLength <= 5.5
             ? "good"
             : "needs improvement",
       },
@@ -499,13 +500,12 @@ export function EnhancedATSChecker({
                         strokeWidth="8"
                       />
                       <circle
-                        className={`${
-                          scoreResult.overallScore >= 80
-                            ? "stroke-green-500"
-                            : scoreResult.overallScore >= 60
-                              ? "stroke-yellow-500"
-                              : "stroke-red-500"
-                        }`}
+                        className={`${scoreResult.overallScore >= 80
+                          ? "stroke-green-500"
+                          : scoreResult.overallScore >= 60
+                            ? "stroke-yellow-500"
+                            : "stroke-red-500"
+                          }`}
                         cx="50"
                         cy="50"
                         r="45"
@@ -737,33 +737,62 @@ export function EnhancedATSChecker({
                   </Card>
                 </div>
 
-                <Card>
+                <Card className="col-span-1 md:col-span-2">
                   <CardHeader className="pb-2">
-                    <CardTitle className="text-sm font-medium">Keyword Importance</CardTitle>
-                    <CardDescription>Visual representation of keyword relevance</CardDescription>
+                    <CardTitle className="text-sm font-medium">Keyword DNA</CardTitle>
+                    <CardDescription>Visual analysis of keyword matches and gaps</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="w-full h-64">
-                      <ResponsiveContainer width="100%" height="100%">
-                        <PieChart width={400} height={400}>
-                          <Pie
-                            data={getKeywordData().found}
-                            cx="50%"
-                            cy="50%"
-                            innerRadius={50}
-                            outerRadius={80}
-                            dataKey="value"
-                            nameKey="name"
-                            label
-                          >
-                            {getKeywordData().found.map((entry, index) => (
-                              <Cell key={`cell-${index}`} fill={entry.fill} />
-                            ))}
-                          </Pie>
-                          <RechartsTooltip />
-                          <Legend />
-                        </PieChart>
-                      </ResponsiveContainer>
+                    <div className="min-h-[300px] flex flex-wrap content-center justify-center gap-3 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-dashed border-slate-200 dark:border-slate-800">
+                      {getKeywordData().found.length === 0 && getKeywordData().missing.length === 0 ? (
+                        <div className="text-center text-muted-foreground py-10">
+                          <p>Analyze your resume to see keyword insights</p>
+                        </div>
+                      ) : (
+                        <>
+                          {[...getKeywordData().found, ...getKeywordData().missing]
+                            .sort((a, b) => b.value - a.value)
+                            .map((keyword, index) => {
+                              const isFound = getKeywordData().found.some(k => k.name === keyword.name);
+                              return (
+                                <motion.div
+                                  key={index}
+                                  initial={{ opacity: 0, scale: 0.5 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                                  whileHover={{ scale: 1.1, rotate: Math.random() * 4 - 2 }}
+                                  className={`
+                                    relative px-3 py-1.5 rounded-full text-sm font-semibold shadow-sm cursor-default border
+                                    ${isFound
+                                      ? "bg-green-100 text-green-700 border-green-200 dark:bg-green-900/30 dark:text-green-300 dark:border-green-800"
+                                      : "bg-red-50 text-red-600 border-red-100 dark:bg-red-900/20 dark:text-red-400 dark:border-red-900/50 dashed-border"}
+                                  `}
+                                  style={{
+                                    fontSize: `${Math.max(0.75, keyword.value / 100 * 1.5 + 0.5)}rem`,
+                                  }}
+                                >
+                                  {keyword.name}
+                                  {isFound && (
+                                    <span className="absolute -top-1 -right-1 flex h-3 w-3">
+                                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                      <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                                    </span>
+                                  )}
+                                </motion.div>
+                              );
+                            })}
+                        </>
+                      )}
+                    </div>
+                    <div className="flex justify-center gap-6 mt-4 text-xs text-muted-foreground">
+                      <div className="flex items-center gap-2">
+                        <span className="w-3 h-3 rounded-full bg-green-100 border border-green-200 dark:bg-green-900/30 dark:border-green-800"></span>
+                        <span>Matched Keywords</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="w-3 h-3 rounded-full bg-red-50 border border-red-100 dark:bg-red-900/20 dark:border-red-900/50"></span>
+                        <span>Missing Keywords</span>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
