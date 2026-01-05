@@ -1,9 +1,20 @@
+import type { ResumeData, Template } from "@/lib/types"
+import { ModernTemplate } from "./templates/modern-template"
+import { MinimalTemplate } from "./templates/minimal-template"
+import { ATSOptimizedTemplate } from "./templates/ats-optimized-template"
+import { CreativeTemplate } from "./templates/creative-template"
+import { ExecutiveTemplate } from "./templates/executive-template"
+import { TechTemplate } from "./templates/tech-template"
 import { ElegantTemplate } from "./templates/elegant-template"
 import { ProfessionalTemplate } from "./templates/professional-template"
 import { AcademicTemplate } from "./templates/academic-template"
 import { DesignerTemplate } from "./templates/designer-template"
+import { defaultCustomization } from "@/lib/templates"
 
-// ... imports remain the same
+interface ResumePreviewProps {
+  resumeData: ResumeData
+  template: Template
+}
 
 export function ResumePreview({ resumeData, template }: ResumePreviewProps) {
   // Ensure customization exists
