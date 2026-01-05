@@ -1,6 +1,6 @@
 "use client"
 
-import { generateStructuredData } from "./gemini-service"
+import { generateStructuredData } from "./groq-service"
 
 type EnhancementStyle = "metrics" | "impact" | "technical" | "leadership"
 

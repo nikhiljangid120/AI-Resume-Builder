@@ -3,8 +3,8 @@
 import { useState, useEffect, useRef } from "react"
 import type { ResumeData } from "@/lib/types"
 import { Button } from "@/components/ui/button"
-import { 
-  Sparkles, RefreshCw, Zap, FileText, Target, AlertCircle, ExternalLink, 
+import {
+  Sparkles, RefreshCw, Zap, FileText, Target, AlertCircle, ExternalLink,
   CheckCircle, Copy, Download, ArrowRight, ChevronDown, BarChart, CheckCheck, Info
 } from "lucide-react"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -17,9 +17,11 @@ import { Progress } from "@/components/ui/progress"
 import { Skeleton } from "@/components/ui/skeleton"
 import {
   generateProfessionalSummary,
-  enhanceBulletPoints,
+  analyzeResumeStrengthsWeaknesses,
   generateTailoringTips,
-} from "@/lib/ai-services/gemini-service"
+  enhanceBulletPoints,
+  analyzeTextSimilarity,
+} from "@/lib/ai-services/groq-service"
 import { useToast } from "@/hooks/use-toast"
 import {
   Accordion,
@@ -59,7 +61,7 @@ export function AIFeaturesEnhanced({ resumeData, onDataChange, jobDescription }:
   const [analysisScore, setAnalysisScore] = useState<number | null>(null)
   const [analysisFeedback, setAnalysisFeedback] = useState<string[]>([])
   const [analysisSuggestions, setAnalysisSuggestions] = useState<string[]>([])
-  const [keywordMatches, setKeywordMatches] = useState<{word: string, count: number}[]>([])
+  const [keywordMatches, setKeywordMatches] = useState<{ word: string, count: number }[]>([])
   const [showDetailedAnalysis, setShowDetailedAnalysis] = useState(false)
 
   // Job description state
@@ -97,7 +99,7 @@ export function AIFeaturesEnhanced({ resumeData, onDataChange, jobDescription }:
     if (progressTimerRef.current) {
       clearInterval(progressTimerRef.current)
     }
-    
+
     progressTimerRef.current = setInterval(() => {
       setProcessingProgress((prev) => {
         const increment = Math.random() * 15
@@ -114,7 +116,7 @@ export function AIFeaturesEnhanced({ resumeData, onDataChange, jobDescription }:
       progressTimerRef.current = null
     }
     setProcessingProgress(100)
-    
+
     // Reset to 0 after completion animation
     setTimeout(() => {
       setProcessingProgress(0)
@@ -217,7 +219,7 @@ export function AIFeaturesEnhanced({ resumeData, onDataChange, jobDescription }:
           }
         }
       }
- 
+
       onDataChange(enhancedData)
       setSuccess("Resume content enhanced successfully!")
       toast({
@@ -270,8 +272,8 @@ export function AIFeaturesEnhanced({ resumeData, onDataChange, jobDescription }:
 
       // Generate a score based on the resume quality and job match
       // In a real implementation, this would come from the API
-      const baseScore = jobDescription ? 
-        Math.floor(Math.random() * (92 - 75 + 1)) + 75 : 
+      const baseScore = jobDescription ?
+        Math.floor(Math.random() * (92 - 75 + 1)) + 75 :
         Math.floor(Math.random() * (80 - 65 + 1)) + 65
       setAnalysisScore(baseScore)
 
@@ -292,7 +294,7 @@ export function AIFeaturesEnhanced({ resumeData, onDataChange, jobDescription }:
         "Include relevant certifications or professional development near the top of your resume.",
         "Consider using stronger action verbs at the beginning of your achievement statements.",
       ])
-      
+
       // Generate mock keyword matches
       setKeywordMatches([
         { word: "Project Management", count: 3 },
@@ -356,9 +358,9 @@ export function AIFeaturesEnhanced({ resumeData, onDataChange, jobDescription }:
     if (enhancedAchievements.length > 0) {
       const updatedResumeData = { ...resumeData }
       updatedResumeData.experience[selectedExperienceIndex].achievements = [...enhancedAchievements]
-      
+
       onDataChange(updatedResumeData)
-      
+
       toast({
         title: "Enhancements Applied",
         description: "The enhanced bullet points have been applied to your resume.",
@@ -375,10 +377,10 @@ export function AIFeaturesEnhanced({ resumeData, onDataChange, jobDescription }:
       variant: "success",
     })
   }
-  
+
   const handleExportAnalysis = () => {
     if (!analysisResult.length) return
-    
+
     const analysisText = `
 # Resume Analysis Report
 Generated on: ${new Date().toLocaleDateString()}
@@ -407,7 +409,7 @@ ${analysisResult.join('\n\n')}
     a.click()
     document.body.removeChild(a)
     URL.revokeObjectURL(url)
-    
+
     toast({
       title: "Analysis Exported",
       description: "The analysis report has been downloaded as a text file.",
@@ -439,11 +441,11 @@ ${analysisResult.join('\n\n')}
               <Tooltip>
                 <TooltipTrigger asChild>
                   <div>
-                    <Badge 
-                      variant="outline" 
+                    <Badge
+                      variant="outline"
                       className={`
-                        ${jobDescription 
-                          ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200" 
+                        ${jobDescription
+                          ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
                           : "bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200"}
                       `}
                     >
@@ -452,8 +454,8 @@ ${analysisResult.join('\n\n')}
                   </div>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>{jobDescription 
-                    ? "AI will analyze your resume against the job description" 
+                  <p>{jobDescription
+                    ? "AI will analyze your resume against the job description"
                     : "Add a job description for better tailored results"}
                   </p>
                 </TooltipContent>
@@ -591,7 +593,7 @@ ${analysisResult.join('\n\n')}
                     Your achievement statements have been enhanced for greater impact
                   </p>
                 </div>
-                
+
                 <div className="grid gap-4 p-4 md:grid-cols-2">
                   <div className="space-y-2 rounded-md border border-gray-200 bg-white p-3 dark:border-gray-800 dark:bg-gray-900">
                     <h4 className="font-medium text-gray-700 dark:text-gray-300">Original Content</h4>
@@ -610,7 +612,7 @@ ${analysisResult.join('\n\n')}
                       Copy Original
                     </Button>
                   </div>
-                  
+
                   <div className="space-y-2 rounded-md border border-green-200 bg-white p-3 dark:border-green-900 dark:bg-gray-900">
                     <h4 className="font-medium text-green-700 dark:text-green-400">Enhanced Content</h4>
                     <ul className="ml-5 list-disc space-y-2 text-sm text-gray-600 dark:text-gray-400">
@@ -639,7 +641,7 @@ ${analysisResult.join('\n\n')}
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="flex flex-wrap justify-center gap-4 border-t border-green-100 bg-green-50 p-4 dark:border-green-900 dark:bg-green-950">
                   <div className="text-center">
                     <div className="text-xs text-gray-500 dark:text-gray-400">Impact Score</div>
@@ -713,7 +715,7 @@ ${analysisResult.join('\n\n')}
                     Your professional summary has been generated
                   </p>
                 </div>
-                
+
                 <div className="grid gap-4 p-4 md:grid-cols-2">
                   <div className="space-y-2 rounded-md border border-gray-200 bg-white p-3 dark:border-gray-800 dark:bg-gray-900">
                     <h4 className="font-medium text-gray-700 dark:text-gray-300">Original Summary</h4>
@@ -730,7 +732,7 @@ ${analysisResult.join('\n\n')}
                       Copy Original
                     </Button>
                   </div>
-                  
+
                   <div className="space-y-2 rounded-md border border-blue-200 bg-white p-3 dark:border-blue-900 dark:bg-gray-900">
                     <h4 className="font-medium text-blue-700 dark:text-blue-400">Enhanced Summary</h4>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -757,7 +759,7 @@ ${analysisResult.join('\n\n')}
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="flex flex-wrap justify-center gap-4 border-t border-blue-100 bg-blue-50 p-4 dark:border-blue-900 dark:bg-blue-950">
                   <div className="text-center">
                     <div className="text-xs text-gray-500 dark:text-gray-400">Relevance</div>
@@ -831,7 +833,7 @@ ${analysisResult.join('\n\n')}
                     Comprehensive analysis of your resume's ATS compatibility
                   </p>
                 </div>
-                
+
                 <div className="p-4">
                   <div className="mx-auto mb-6 flex max-w-md flex-col items-center rounded-lg border border-amber-200 bg-white p-4 text-center dark:border-amber-900 dark:bg-gray-900">
                     <h4 className="text-lg font-medium text-amber-700 dark:text-amber-400">ATS Compatibility Score</h4>
@@ -840,14 +842,14 @@ ${analysisResult.join('\n\n')}
                       <div className="absolute bottom-0 text-xs text-amber-600 dark:text-amber-500">/100</div>
                     </div>
                     <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                      {analysisScore >= 90 
+                      {analysisScore >= 90
                         ? "Excellent match for this position!"
                         : analysisScore >= 75
-                        ? "Good match with room for improvement"
-                        : "Needs optimization for this role"}
+                          ? "Good match with room for improvement"
+                          : "Needs optimization for this role"}
                     </p>
                   </div>
-                  
+
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div className="space-y-3 rounded-md border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
                       <h4 className="font-medium text-gray-800 dark:text-gray-200">Key Feedback</h4>
@@ -857,7 +859,7 @@ ${analysisResult.join('\n\n')}
                         ))}
                       </ul>
                     </div>
-                    
+
                     <div className="space-y-3 rounded-md border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-900">
                       <h4 className="font-medium text-gray-800 dark:text-gray-200">Suggestions</h4>
                       <ul className="ml-5 list-disc space-y-2 text-sm text-gray-600 dark:text-gray-400">
@@ -867,7 +869,7 @@ ${analysisResult.join('\n\n')}
                       </ul>
                     </div>
                   </div>
-                  
+
                   <Accordion type="single" collapsible className="mt-4 w-full">
                     <AccordionItem value="keyword-analysis">
                       <AccordionTrigger className="rounded-md bg-amber-100/50 px-4 py-2 text-amber-800 hover:bg-amber-100 dark:bg-amber-900/30 dark:text-amber-300 dark:hover:bg-amber-900/50">
@@ -879,7 +881,7 @@ ${analysisResult.join('\n\n')}
                       <AccordionContent className="bg-white p-4 dark:bg-gray-900">
                         <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                           {keywordMatches.map((item, index) => (
-                            <div 
+                            <div
                               key={index}
                               className="flex items-center justify-between rounded-md border border-gray-200 bg-gray-50 px-3 py-2 dark:border-gray-800 dark:bg-gray-800"
                             >
@@ -892,7 +894,7 @@ ${analysisResult.join('\n\n')}
                         </div>
                       </AccordionContent>
                     </AccordionItem>
-                    
+
                     <AccordionItem value="detailed-analysis">
                       <AccordionTrigger className="mt-2 rounded-md bg-amber-100/50 px-4 py-2 text-amber-800 hover:bg-amber-100 dark:bg-amber-900/30 dark:text-amber-300 dark:hover:bg-amber-900/50">
                         <div className="flex items-center gap-2">
@@ -909,7 +911,7 @@ ${analysisResult.join('\n\n')}
                       </AccordionContent>
                     </AccordionItem>
                   </Accordion>
-                  
+
                   <div className="mt-6 flex flex-wrap justify-center gap-4">
                     <div className="text-center">
                       <div className="text-xs text-gray-500 dark:text-gray-400">Keyword Match</div>
@@ -940,9 +942,9 @@ ${analysisResult.join('\n\n')}
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="mt-6 flex justify-center">
-                    <Button 
+                    <Button
                       onClick={handleExportAnalysis}
                       className="gap-2 bg-amber-600 hover:bg-amber-700 dark:bg-amber-700 dark:hover:bg-amber-600"
                     >
