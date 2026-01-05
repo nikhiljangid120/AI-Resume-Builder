@@ -509,7 +509,7 @@ export function ResumePreviewModal({ resumeData, template, open, onOpenChange }:
             {renderActionButtons()}
           </DialogHeader>
 
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="flex flex-col flex-1">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="flex flex-col flex-1 min-h-0">
             <div className="flex items-center justify-between border-b border-purple-400/30 px-4 py-2 bg-gray-800/80">
               <TabsList className="grid grid-cols-2 w-[200px] bg-gray-900/80 border border-purple-400/50 rounded-lg">
                 <TabsTrigger
@@ -583,7 +583,7 @@ export function ResumePreviewModal({ resumeData, template, open, onOpenChange }:
 
             <TabsContent
               value="preview"
-              className="flex-1 overflow-auto bg-gray-800/50 p-2 md:p-8"
+              className="flex-1 overflow-auto bg-gray-800/50 p-2 md:p-8 min-h-0 fancy-scrollbar"
             >
               <motion.div
                 ref={previewContainerRef}
