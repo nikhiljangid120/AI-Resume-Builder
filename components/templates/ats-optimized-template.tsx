@@ -160,7 +160,7 @@ export function ATSOptimizedTemplate({ resumeData }: ATSOptimizedTemplateProps) 
       </header>
 
       <div className={getSpacingClass()}>
-        {customization.sectionOrder.map((section) => renderSection(section))}
+        {customization.sectionOrder?.map((section) => renderSection(section))}
       </div>
     </div>
   )

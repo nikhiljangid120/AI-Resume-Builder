@@ -209,7 +209,7 @@ export function CreativeTemplate({ resumeData }: CreativeTemplateProps) {
       {/* Main Content */}
       <div className="col-span-2 p-6">
         <div className={getSpacingClass()}>
-          {customization.sectionOrder.map((section) => renderSection(section))}
+          {customization.sectionOrder?.map((section) => renderSection(section))}
         </div>
       </div>
     </div>

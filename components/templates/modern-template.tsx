@@ -231,7 +231,7 @@ export function ModernTemplate({ resumeData }: ModernTemplateProps) {
       </header>
 
       <div className={getSpacingClass()}>
-        {customization.sectionOrder.map((section) => renderSection(section))}
+        {customization.sectionOrder?.map((section) => renderSection(section))}
       </div>
     </div>
   )

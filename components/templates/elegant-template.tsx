@@ -173,7 +173,7 @@ export function ElegantTemplate({ resumeData }: ElegantTemplateProps) {
         </div>
       </header>
 
-      {customization.sectionOrder.map((section) => renderSection(section))}
+      {customization.sectionOrder?.map((section) => renderSection(section))}
     </div>
   )
 }

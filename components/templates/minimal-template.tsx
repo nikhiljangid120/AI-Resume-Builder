@@ -186,7 +186,7 @@ export function MinimalTemplate({ resumeData }: MinimalTemplateProps) {
       </header>
 
       <div className={getSpacingClass()}>
-        {customization.sectionOrder.map((section) => renderSection(section))}
+        {customization.sectionOrder?.map((section) => renderSection(section))}
       </div>
 
       <style jsx>{`

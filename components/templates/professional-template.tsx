@@ -173,7 +173,7 @@ export function ProfessionalTemplate({ resumeData }: ProfessionalTemplateProps) 
 
                 {/* Main Content */}
                 <main className="w-full md:w-2/3 p-8">
-                    {customization.sectionOrder.map((section) => renderSection(section))}
+                    {customization.sectionOrder?.map((section) => renderSection(section))}
 
                 </main>
             </div>

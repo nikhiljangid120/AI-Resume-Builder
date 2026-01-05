@@ -288,7 +288,7 @@ export function TechTemplate({ resumeData }: TechTemplateProps) {
       </header>
 
       <div className={getSpacingClass()}>
-        {customization.sectionOrder.map((section) => renderSection(section))}
+        {customization.sectionOrder?.map((section) => renderSection(section))}
       </div>
     </div>
   )

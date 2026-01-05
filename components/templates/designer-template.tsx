@@ -149,7 +149,7 @@ export function DesignerTemplate({ resumeData }: DesignerTemplateProps) {
 
                 {/* Right Column (Content) */}
                 <div className="col-span-12 md:col-span-8 p-8 md:p-12 bg-white">
-                    {customization.sectionOrder.map((section) => renderSection(section))}
+                    {customization.sectionOrder?.map((section) => renderSection(section))}
                 </div>
             </div>
         </div>
