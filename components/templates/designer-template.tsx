@@ -9,6 +9,73 @@ export function DesignerTemplate({ resumeData }: DesignerTemplateProps) {
     const { personalInfo, skills, experience, education, projects } = resumeData
     const customization = resumeData.customization || defaultCustomization
 
+    const renderSection = (section: string) => {
+        switch (section) {
+            case "personalInfo":
+                return personalInfo.summary && (
+                    <section key="summary" className="mb-12">
+                        <p className="text-xl md:text-2xl font-light leading-relaxed opacity-80">
+                            {personalInfo.summary}
+                        </p>
+                    </section>
+                )
+            case "experience":
+                return experience.length > 0 && (
+                    <section key="experience" className="mb-12">
+                        <h3 className="text-4xl font-black tracking-tighter mb-8 opacity-10 flex items-center gap-4">
+                            EXPERIENCE
+                            <span className="h-px w-full bg-black flex-1"></span>
+                        </h3>
+                        <div className="space-y-10">
+                            {experience.map((exp, index) => (
+                                <div key={index} className="grid grid-cols-12 gap-4">
+                                    <div className="col-span-3">
+                                        <div className="text-xs font-bold uppercase tracking-widest opacity-40">{exp.startDate}</div>
+                                        <div className="text-xs font-bold uppercase tracking-widest opacity-40">{exp.endDate}</div>
+                                    </div>
+                                    <div className="col-span-9 border-l-2 pl-6" style={{ borderColor: customization.primaryColor }}>
+                                        <h4 className="text-xl font-bold mb-1">{exp.position}</h4>
+                                        <div className="text-sm font-bold uppercase tracking-wide opacity-50 mb-3">{exp.company}, {exp.location}</div>
+                                        <p className="text-sm opacity-70 leading-relaxed max-w-lg mb-3">{exp.description}</p>
+                                        {exp.achievements.length > 0 && (
+                                            <ul className="text-sm opacity-70 list-none space-y-1">
+                                                {exp.achievements.map((achievement, ai) => (
+                                                    <li key={ai} className="before:content-['-'] before:mr-2">{achievement}</li>
+                                                ))}
+                                            </ul>
+                                        )}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                )
+            case "projects":
+                return projects.length > 0 && (
+                    <section key="projects">
+                        <h3 className="text-4xl font-black tracking-tighter mb-8 opacity-10 flex items-center gap-4">
+                            PROJECTS
+                            <span className="h-px w-full bg-black flex-1"></span>
+                        </h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {projects.map((project, index) => (
+                                <div key={index} className="bg-stone-50 p-6 hover:bg-stone-100 transition-colors">
+                                    <h4 className="font-bold text-lg mb-1">{project.name}</h4>
+                                    {project.technologies && <div className="text-xs font-mono opacity-50 mb-3 pb-3 border-b border-stone-200">{project.technologies}</div>}
+                                    <p className="text-sm opacity-70 mb-4 h-16 overflow-hidden text-ellipsis">{project.description}</p>
+                                    {project.link && (
+                                        <a href={project.link} className="text-xs font-bold uppercase tracking-widest border-b-2 pb-0.5 hover:opacity-50 transition-opacity" style={{ borderColor: customization.primaryColor }}>View Work</a>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                )
+            default:
+                return null
+        }
+    }
+
     return (
         <div
             className="flex h-full flex-col bg-stone-50"
@@ -82,68 +149,7 @@ export function DesignerTemplate({ resumeData }: DesignerTemplateProps) {
 
                 {/* Right Column (Content) */}
                 <div className="col-span-12 md:col-span-8 p-8 md:p-12 bg-white">
-                    {/* Summary */}
-                    {personalInfo.summary && (
-                        <section className="mb-12">
-                            <p className="text-xl md:text-2xl font-light leading-relaxed opacity-80">
-                                {personalInfo.summary}
-                            </p>
-                        </section>
-                    )}
-
-                    {/* Experience */}
-                    {experience.length > 0 && (
-                        <section className="mb-12">
-                            <h3 className="text-4xl font-black tracking-tighter mb-8 opacity-10 flex items-center gap-4">
-                                EXPERIENCE
-                                <span className="h-px w-full bg-black flex-1"></span>
-                            </h3>
-                            <div className="space-y-10">
-                                {experience.map((exp, index) => (
-                                    <div key={index} className="grid grid-cols-12 gap-4">
-                                        <div className="col-span-3">
-                                            <div className="text-xs font-bold uppercase tracking-widest opacity-40">{exp.startDate}</div>
-                                            <div className="text-xs font-bold uppercase tracking-widest opacity-40">{exp.endDate}</div>
-                                        </div>
-                                        <div className="col-span-9 border-l-2 pl-6" style={{ borderColor: customization.primaryColor }}>
-                                            <h4 className="text-xl font-bold mb-1">{exp.position}</h4>
-                                            <div className="text-sm font-bold uppercase tracking-wide opacity-50 mb-3">{exp.company}, {exp.location}</div>
-                                            <p className="text-sm opacity-70 leading-relaxed max-w-lg mb-3">{exp.description}</p>
-                                            {exp.achievements.length > 0 && (
-                                                <ul className="text-sm opacity-70 list-none space-y-1">
-                                                    {exp.achievements.map((achievement, ai) => (
-                                                        <li key={ai} className="before:content-['-'] before:mr-2">{achievement}</li>
-                                                    ))}
-                                                </ul>
-                                            )}
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </section>
-                    )}
-
-                    {/* Projects */}
-                    {projects.length > 0 && (
-                        <section>
-                            <h3 className="text-4xl font-black tracking-tighter mb-8 opacity-10 flex items-center gap-4">
-                                PROJECTS
-                                <span className="h-px w-full bg-black flex-1"></span>
-                            </h3>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {projects.map((project, index) => (
-                                    <div key={index} className="bg-stone-50 p-6 hover:bg-stone-100 transition-colors">
-                                        <h4 className="font-bold text-lg mb-1">{project.name}</h4>
-                                        {project.technologies && <div className="text-xs font-mono opacity-50 mb-3 pb-3 border-b border-stone-200">{project.technologies}</div>}
-                                        <p className="text-sm opacity-70 mb-4 h-16 overflow-hidden text-ellipsis">{project.description}</p>
-                                        {project.link && (
-                                            <a href={project.link} className="text-xs font-bold uppercase tracking-widest border-b-2 pb-0.5 hover:opacity-50 transition-opacity" style={{ borderColor: customization.primaryColor }}>View Work</a>
-                                        )}
-                                    </div>
-                                ))}
-                            </div>
-                        </section>
-                    )}
+                    {customization.sectionOrder.map((section) => renderSection(section))}
                 </div>
             </div>
         </div>
