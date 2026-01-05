@@ -80,19 +80,23 @@ export interface ThemeOption {
   name: string
   primaryColor: string
   secondaryColor: string
+  thumbnail?: string
 }
 
 export interface FontOption {
   name: string
   value: string
+  thumbnail?: string
 }
 
 export interface SpacingOption {
   name: string
   value: string
+  thumbnail?: string
 }
 
 export interface FontSizeOption {
   name: string
   value: string
+  thumbnail?: string
 }
