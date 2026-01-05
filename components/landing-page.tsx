@@ -606,7 +606,7 @@ export function LandingPage() {
 
       <main>
         {/* Hero Section */}
-        <section id="hero-section" className="relative overflow-hidden py-24 md:py-36 bg-gradient-to-br from-purple-900/30 to-blue-900/30">
+        <section id="hero-section" className="relative overflow-hidden py-16 md:py-36 bg-gradient-to-br from-purple-900/30 to-blue-900/30">
           {/* Particle Canvas */}
           <canvas id="particle-canvas" className="absolute inset-0 -z-10" />
 
