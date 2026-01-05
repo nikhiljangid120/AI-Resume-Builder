@@ -673,7 +673,7 @@ export function EnhancedATSChecker({
                                 item.priority === "high"
                                   ? "destructive"
                                   : item.priority === "medium"
-                                    ? "warning"
+                                    ? "default"
                                     : "default"
                               }
                             >
