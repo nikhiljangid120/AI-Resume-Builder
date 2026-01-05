@@ -147,40 +147,40 @@ export function ResumeBuilder() {
       if (data.experience) {
         updated.experience = Array.isArray(data.experience)
           ? data.experience.map((exp) => ({
-              company: exp.company ?? "",
-              position: exp.position ?? "",
-              startDate: exp.startDate ?? "",
-              endDate: exp.endDate ?? "Present",
-              location: exp.location ?? "",
-              description: exp.description ?? "",
-              achievements: Array.isArray(exp.achievements) ? exp.achievements.map((a) => a ?? "") : [""],
-            }))
+            company: exp.company ?? "",
+            position: exp.position ?? "",
+            startDate: exp.startDate ?? "",
+            endDate: exp.endDate ?? "Present",
+            location: exp.location ?? "",
+            description: exp.description ?? "",
+            achievements: Array.isArray(exp.achievements) ? exp.achievements.map((a) => a ?? "") : [""],
+          }))
           : []
       }
       if (data.education) {
         updated.education = Array.isArray(data.education)
           ? data.education.map((edu) => ({
-              institution: edu.institution ?? "",
-              degree: edu.degree ?? "",
-              field: edu.field ?? "",
-              startDate: edu.startDate ?? "",
-              endDate: edu.endDate ?? "",
-              location: edu.location ?? "",
-              description: edu.description ?? "",
-            }))
+            institution: edu.institution ?? "",
+            degree: edu.degree ?? "",
+            field: edu.field ?? "",
+            startDate: edu.startDate ?? "",
+            endDate: edu.endDate ?? "",
+            location: edu.location ?? "",
+            description: edu.description ?? "",
+          }))
           : []
       }
       if (data.projects) {
         updated.projects = Array.isArray(data.projects)
           ? data.projects.map((proj) => ({
-              name: proj.name ?? "",
-              description: proj.description ?? "",
-              technologies: proj.technologies ?? "",
-              link: proj.link ?? "",
-              startDate: proj.startDate ?? "",
-              endDate: proj.endDate ?? "",
-              achievements: Array.isArray(proj.achievements) ? exp.achievements.map((a) => a ?? "") : [""],
-            }))
+            name: proj.name ?? "",
+            description: proj.description ?? "",
+            technologies: proj.technologies ?? "",
+            link: proj.link ?? "",
+            startDate: proj.startDate ?? "",
+            endDate: proj.endDate ?? "",
+            achievements: Array.isArray(proj.achievements) ? exp.achievements.map((a) => a ?? "") : [""],
+          }))
           : []
       }
       if (data.customization) updated.customization = { ...updated.customization, ...data.customization }
@@ -240,7 +240,7 @@ export function ResumeBuilder() {
   return (
     <div
       ref={containerRef}
-      className="relative min-h-screen bg-gradient-to-br from-gray-900 to-indigo-900 text-white overflow-hidden"
+      className="relative min-h-screen bg-gradient-to-br from-gray-900 to-indigo-900 text-white overflow-visible"
       style={{
         backgroundImage: "radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.07) 0%, transparent 30%)",
       }}

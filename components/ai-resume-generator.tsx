@@ -190,7 +190,6 @@ export function AIResumeGenerator({
       // Generate resume data using Gemini API
       const generatedData = await generateStructuredData<Partial<ResumeData>>(prompt, systemPrompt, {
         temperature: 0.7,
-        maxOutputTokens: 2048,
       })
 
       // Step 3: Finalize
@@ -210,7 +209,7 @@ export function AIResumeGenerator({
       toast({
         title: "Resume Generated Successfully",
         description: "Your AI-optimized resume has been created and is ready for review.",
-        variant: "success",
+        variant: "default",
       })
     } catch (error: any) {
       console.error("Generation failed:", error)
@@ -544,10 +543,7 @@ export function AIResumeGenerator({
           </div>
         )}
       </CardContent>
-      <CardFooter className="flex flex-col xs:flex-row justify-between border-t border-purple-500/30 bg-gray-900/50 px-3 sm:px-4 md:px-6 py-2 sm:py-3 text-xs text-purple-200 gap-1">
-        <p>Powered by Gemini AI</p>
-        <p>Using real-time ML for optimal results</p>
-      </CardFooter>
+
     </Card>
   )
 }
