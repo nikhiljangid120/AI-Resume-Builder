@@ -33,4 +33,7 @@ export interface ResumeScoreResult {
   grammarScore?: number
   missingKeywords: string[]
   suggestions: string[]
+  keywordMatches?: KeywordMatch[]
+  grammarIssues?: GrammarIssue[]
+  sectionScores?: Record<string, number>
 }

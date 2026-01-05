@@ -84,12 +84,13 @@ export async function resumeScore(
   return {
     overallScore,
     keywordMatchScore,
-    embeddingMatchScore,
+    contentRelevanceScore: embeddingMatchScore,
+    formatScore: 0, // Not calculated in this version
     grammarScore,
-    keywordMatches,
     missingKeywords,
+    suggestions: improvementSuggestions,
+    keywordMatches,
     grammarIssues,
-    improvementSuggestions,
     sectionScores,
   }
 }
