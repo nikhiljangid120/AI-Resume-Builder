@@ -263,10 +263,10 @@ function analyzeResume(resumeData: ResumeData) {
   // Calculate overall content score
   contentScore = Math.round(
     personalInfoScore * 0.15 +
-      skillsScore * 0.2 +
-      experienceScore * 0.35 +
-      educationScore * 0.15 +
-      projectsScore * 0.15,
+    skillsScore * 0.2 +
+    experienceScore * 0.35 +
+    educationScore * 0.15 +
+    projectsScore * 0.15,
   )
 
   // Analyze format and structure
@@ -384,8 +384,6 @@ function analyzePersonalInfo(personalInfo: ResumeData["personalInfo"]): number {
 
   // Check for completeness
   if (personalInfo.name) score += 10
-  if (personalInfo.title) score += 10
-  if (personalInfo.email) score += score += 10
   if (personalInfo.title) score += 10
   if (personalInfo.email) score += 10
   if (personalInfo.phone) score += 10

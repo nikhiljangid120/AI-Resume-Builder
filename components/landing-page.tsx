@@ -1041,7 +1041,7 @@ export function LandingPage() {
                 <h3 className="mb-2 text-2xl font-bold">Nikhil Jangid</h3>
                 <p className="mb-4 text-purple-600 dark:text-purple-400">Full Stack Developer</p>
                 <p className="mb-6 max-w-2xl text-gray-600 dark:text-gray-300 typing-text">
-                  A 20-year-old innovator from Jaipur, Rajasthan, dedicated to building tools that transform lives. ResumeRocket AI simplifies job applications for all.
+                  A 21-year-old innovator from Jaipur, Rajasthan, dedicated to building tools that transform lives. ResumeRocket AI simplifies job applications for all.
                 </p>
                 <div className="flex justify-center space-x-4">
                   <a
