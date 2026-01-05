@@ -675,7 +675,7 @@ export function AIFeatures({ resumeData, onDataChange, jobDescription }: AIFeatu
                   </CardHeader>
                   <CardContent className="pt-3">
                     <ul className="space-y-2">
-                      {analysisResult.tailoringTips.map((tip, i) => (
+                      {analysisResult.tailoringTips.map((tip: string, i: number) => (
                         <li key={i} className="flex items-start gap-2">
                           <Target className="h-4 w-4 text-purple-600 mt-0.5 flex-shrink-0" />
                           <span className="text-xs sm:text-sm">{tip}</span>

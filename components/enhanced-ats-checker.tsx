@@ -849,7 +849,7 @@ export function EnhancedATSChecker({
             </Tabs>
           </div>
         ) : (
-          <Alert variant="secondary">
+          <Alert variant="default">
             <Info className="h-4 w-4" />
             <AlertTitle>No Analysis Performed</AlertTitle>
             <AlertDescription>
