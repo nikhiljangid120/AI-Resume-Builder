@@ -52,7 +52,7 @@ export function ResumePreview({ resumeData, template }: ResumePreviewProps) {
   }
 
   return (
-    <div id="resume-preview-container" className="h-[842px] w-full overflow-auto bg-white p-8 text-black">
+    <div id="resume-preview-container" className="min-h-[297mm] w-[210mm] mx-auto overflow-hidden bg-white p-8 text-black shadow-2xl transition-all duration-300 ease-in-out">
       {renderTemplate()}
     </div>
   )
