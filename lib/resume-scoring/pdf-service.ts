@@ -2,7 +2,7 @@
 
 import type { ResumeData } from "@/lib/types"
 import type { ResumeScoreResult, ScoringOptions } from "./types"
-import { generateStructuredData, analyzeTextSimilarity } from "../ai-services/gemini-service"
+import { generateStructuredData, analyzeTextSimilarity } from "../ai-services/groq-service"
 
 /**
  * Score a resume against a job description

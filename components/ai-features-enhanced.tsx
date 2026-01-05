@@ -646,14 +646,14 @@ ${analysisResult.join('\n\n')}
                   <div className="text-center">
                     <div className="text-xs text-gray-500 dark:text-gray-400">Impact Score</div>
                     <div className="mt-1 flex items-center justify-center gap-1">
-                      <Progress value={85} className="h-2 w-16 bg-gray-200 dark:bg-gray-700" indicatorColor="bg-green-500" />
+                      <Progress value={85} className="h-2 w-16 bg-gray-200 dark:bg-gray-700" />
                       <span className="text-sm font-medium text-green-600 dark:text-green-400">85%</span>
                     </div>
                   </div>
                   <div className="text-center">
                     <div className="text-xs text-gray-500 dark:text-gray-400">Clarity</div>
                     <div className="mt-1 flex items-center justify-center gap-1">
-                      <Progress value={90} className="h-2 w-16 bg-gray-200 dark:bg-gray-700" indicatorColor="bg-blue-500" />
+                      <Progress value={90} className="h-2 w-16 bg-gray-200 dark:bg-gray-700" />
                       <span className="text-sm font-medium text-blue-600 dark:text-blue-400">90%</span>
                     </div>
                   </div>
