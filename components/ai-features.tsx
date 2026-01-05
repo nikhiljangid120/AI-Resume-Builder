@@ -26,10 +26,11 @@ import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import {
   generateProfessionalSummary,
-  enhanceBulletPoints,
-  generateTailoringTips,
   analyzeResumeStrengthsWeaknesses,
-} from "@/lib/ai-services/gemini-service"
+  generateTailoringTips,
+  enhanceBulletPoints,
+  analyzeTextSimilarity,
+} from "@/lib/ai-services/groq-service"
 import { useToast } from "@/hooks/use-toast"
 
 interface AIFeaturesProps {
@@ -105,7 +106,7 @@ export function AIFeatures({ resumeData, onDataChange, jobDescription }: AIFeatu
       }
       toast({
         title: "Generation Failed",
-        description: "There was an error generating your summary. Please check the error message for details.", 
+        description: "There was an error generating your summary. Please check the error message for details.",
         variant: "destructive",
       })
     } finally {

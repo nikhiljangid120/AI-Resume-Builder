@@ -13,7 +13,7 @@ import { Badge } from "@/components/ui/badge"
 import { useToast } from "@/hooks/use-toast"
 import type { ResumeData } from "@/lib/types"
 import { AchievementEnhancer } from "@/components/achievement-enhancer"
-import { generateStructuredData } from "@/lib/ai-services/gemini-service"
+import { generateWithGroq, generateStructuredData } from "@/lib/ai-services/groq-service"
 import {
   Sparkles,
   Loader2,
@@ -469,9 +469,9 @@ export function AIResumeGenerator({
             <AchievementEnhancer
               initialAchievements={
                 resumeData?.experience &&
-                Array.isArray(resumeData.experience) &&
-                resumeData.experience.length > 0 &&
-                resumeData.experience[0]?.achievements
+                  Array.isArray(resumeData.experience) &&
+                  resumeData.experience.length > 0 &&
+                  resumeData.experience[0]?.achievements
                   ? resumeData.experience[0].achievements
                   : [""]
               }
@@ -495,7 +495,7 @@ export function AIResumeGenerator({
                   toast({
                     title: "Achievements Enhanced",
                     description: "Your achievements have been enhanced and added to your resume.",
-                    variant: "success",
+                    variant: "default",
                   })
                 }
               }}
