@@ -24,6 +24,7 @@ export async function parsePdfResume(file: File): Promise<string> {
       pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker.default
 
       // Load the PDF document with enhanced configuration
+      // @ts-ignore
       const loadingTask = pdfjs.getDocument({
         data: arrayBuffer,
         nativeImageDecoderSupport: "display",
