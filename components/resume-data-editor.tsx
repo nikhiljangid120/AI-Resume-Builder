@@ -11,7 +11,6 @@ import { Edit, Save, X, Plus, Trash2, Info } from "lucide-react"
 import type { ResumeData, PersonalInfo, SkillCategory } from "@/lib/types"
 import { Badge } from "@/components/ui/badge"
 import { useToast } from "@/hooks/use-toast"
-
 interface ResumeDataEditorProps {
   resumeData: ResumeData
   onDataChange: (data: Partial<ResumeData>) => void
