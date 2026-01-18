@@ -1,4 +1,4 @@
-# AI Resume Builder
+# AI Resume Builder.
 
 **Build your professional resume in minutes with the power of AI.**
 
