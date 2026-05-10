@@ -1,5 +1,4 @@
 # AI Resume Builder.
-
 **Build your professional resume in minutes with the power of AI.**
 
 This project is a modern, feature-rich Resume Builder built with **Next.js**, **Tailwind CSS**, and **Groq AI**. It offers a seamless experience for creating, customizing, and exporting ATS-optimized resumes.
