@@ -4,7 +4,6 @@
 This project is a modern, feature-rich Resume Builder built with **Next.js**, **Tailwind CSS**, and **Groq AI**. It offers a seamless experience for creating, customizing, and exporting ATS-optimized resumes.
 
 ## ✨ Key Features
-
 - **AI-Powered Generation**: Utilize the **Groq API** (Llama 3 70B) to generate professional summaries, enhance bullet points, and check for ATS compatibility.
 - **Real-Time Preview**: See your changes instantly with a dynamic, split-screen editor.
 - **Multiple Professional Templates**: Choose from a variety of distinct templates including Modern, Minimal, ATS-Friendly, Creative, Executive, and more.
