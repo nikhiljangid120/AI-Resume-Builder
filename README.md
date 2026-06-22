@@ -11,7 +11,6 @@ This project is a modern, feature-rich Resume Builder built with **Next.js**, **
 - **Smart Customization**: drag-and-drop section reordering, custom theme colors, font selection, and adjustable spacing.
 - **Local Data Privacy**: Your resume data is stored locally in your browser (LocalStorage). No sign-up required, and your personal data stays with you.
 - **PDF Export**: High-quality, print-ready PDF export functionality.
-
 ## 🛠️ Tech Stack
 
 - **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
