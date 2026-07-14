@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useToast } from "@/hooks/use-toast"
 import type { ResumeData } from "@/lib/types"
+import { saveStoredResumeData } from "@/lib/resume-storage"
 import { useCallback } from "react"
 
 interface UseResumeBuilderProps {
@@ -136,7 +137,7 @@ export default function useResumeBuilder({ resumeData, setResumeData }: UseResum
         }
 
         // Save to localStorage
-        localStorage.setItem("resumeData", JSON.stringify(updated))
+        saveStoredResumeData(updated)
 
         // Show success message after the state update is complete
         setTimeout(() => {
@@ -178,7 +179,7 @@ export default function useResumeBuilder({ resumeData, setResumeData }: UseResum
 
         // Save to localStorage with proper error handling
         try {
-          localStorage.setItem("resumeData", JSON.stringify(updated))
+          saveStoredResumeData(updated)
           console.log("Resume data saved successfully:", updated)
         } catch (error) {
           console.error("Error saving resume data to localStorage:", error)

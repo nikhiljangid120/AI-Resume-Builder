@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
 import type { ResumeData } from "@/lib/types"
 import { defaultResumeData } from "@/lib/default-data"
+import { loadStoredResumeData, saveStoredResumeData } from "@/lib/resume-storage"
 import { templates, defaultCustomization } from "@/lib/templates"
 import { ResumeEditor } from "@/components/resume-editor"
 import { ResumePreview } from "@/components/resume-preview"
@@ -68,26 +69,7 @@ const Typewriter = ({ strings }: { strings: string[] }) => {
 
 export function ResumeBuilder() {
   const [resumeData, setResumeData] = useState<ResumeData>(() => {
-    const defaultData = { ...defaultResumeData }
-    if (typeof window !== "undefined") {
-      try {
-        const storedData = localStorage.getItem("resumeData")
-        if (storedData) {
-          const parsedData = JSON.parse(storedData)
-          return {
-            personalInfo: { ...defaultData.personalInfo, ...parsedData.personalInfo },
-            skills: Array.isArray(parsedData.skills) ? parsedData.skills : defaultData.skills,
-            experience: Array.isArray(parsedData.experience) ? parsedData.experience : defaultData.experience,
-            education: Array.isArray(parsedData.education) ? parsedData.education : defaultData.education,
-            projects: Array.isArray(parsedData.projects) ? parsedData.projects : defaultData.projects,
-            customization: { ...defaultData.customization, ...parsedData.customization },
-          }
-        }
-      } catch (error) {
-        console.error("Error loading resume data from localStorage:", error)
-      }
-    }
-    return defaultData
+    return loadStoredResumeData({ ...defaultResumeData })
   })
 
   const [selectedTemplate, setSelectedTemplate] = useState(templates[0])
@@ -184,7 +166,7 @@ export function ResumeBuilder() {
           : []
       }
       if (data.customization) updated.customization = { ...updated.customization, ...data.customization }
-      localStorage.setItem("resumeData", JSON.stringify(updated))
+      saveStoredResumeData(updated)
       return updated
     })
   }
