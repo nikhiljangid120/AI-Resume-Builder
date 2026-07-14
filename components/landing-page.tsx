@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { AuthButtons } from "@/components/auth-buttons"
 import { Badge } from "@/components/ui/badge"
 import {
   Sparkles,
@@ -47,7 +48,7 @@ export function LandingPage() {
     if (!resumeText) return
 
     const content = [
-      "Nikhil Jangid\n",
+      "Gulshan Jangid\n",
       "Software Developer\n",
       "Built ResumeRocket AI to empower job seekers\n",
       "Expert in React, Node.js, and AI-driven solutions\n",
@@ -541,11 +542,7 @@ export function LandingPage() {
             </a>
             <div className="flex items-center gap-2">
               <ThemeToggle />
-              <Link href="/resume-builder" passHref>
-                <Button className="bg-purple-600 hover:bg-purple-700 futuristic-button" onClick={handleTransition}>
-                  Launch App
-                </Button>
-              </Link>
+              <AuthButtons />
             </div>
           </nav>
           <div className="flex md:hidden items-center gap-2">
@@ -594,11 +591,7 @@ export function LandingPage() {
               <a href="#about" className="px-3 py-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 link-hover" onClick={() => setIsMenuOpen(false)}>
                 About
               </a>
-              <Link href="/resume-builder" passHref>
-                <Button className="w-full bg-purple-600 hover:bg-purple-700 futuristic-button" onClick={handleTransition}>
-                  Launch App
-                </Button>
-              </Link>
+              <AuthButtons className="w-full [&>button]:w-full [&_a]:w-full [&_a>button]:w-full" />
             </div>
           </div>
         )}
@@ -790,7 +783,7 @@ export function LandingPage() {
         </section>
 
         {/* How It Works Section */}
-        <section id="how-it-works" className="py-20 bg-gray-100 dark:bg-gray-800 parallax-bg relative" style={{ backgroundImage: "url('/patterns/subtle-grid.png')" }}>
+        <section id="how-it-works" className="py-20 bg-gray-100 dark:bg-gray-800 parallax-bg relative" style={{ backgroundImage: "linear-gradient(rgba(147, 51, 234, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(147, 51, 234, 0.05) 1px, transparent 1px)", backgroundSize: "20px 20px" }}>
           <div className="container mx-auto px-4">
             <div className="mb-16 text-center">
               <Badge className="mb-4 bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
@@ -982,7 +975,7 @@ export function LandingPage() {
             <div className="mx-auto max-w-3xl">
               <div className="resume-editor rounded-xl p-6 text-gray-800 dark:text-gray-200">
                 <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg">
-                  <h3 className="text-xl font-bold mb-2">Nikhil Jangid's Resume</h3>
+                  <h3 className="text-xl font-bold mb-2">Gulshan Jangid's Resume</h3>
                   <pre className="resume-text font-mono text-sm whitespace-pre-wrap"></pre>
                 </div>
               </div>
@@ -1010,7 +1003,7 @@ export function LandingPage() {
         </section>
 
         {/* About Section */}
-        <section id="about" className="py-20 bg-gray-100 dark:bg-gray-800 parallax-bg relative" style={{ backgroundImage: "url('/patterns/soft-circles.png')" }}>
+        <section id="about" className="py-20 bg-gray-100 dark:bg-gray-800 parallax-bg relative" style={{ backgroundImage: "radial-gradient(rgba(147, 51, 234, 0.05) 2px, transparent 2px)", backgroundSize: "30px 30px" }}>
           {/* Floating Blobs */}
           <svg className="absolute inset-0 -z-10" xmlns="http://www.w3.org/2000/svg">
             <g filter="url(#gooey)">
@@ -1033,19 +1026,19 @@ export function LandingPage() {
               <div className="about-card rounded-xl p-6 text-center">
                 <div className="mb-6 h-32 w-32 mx-auto overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700 about-image">
                   <img
-                    src="/nikhil-profile.jpg"
-                    alt="Nikhil Jangid"
+                    src="/gulshan-profile.png"
+                    alt="Gulshan Jangid"
                     className="h-full w-full object-cover transition-transform duration-300 transform hover:scale-105"
                   />
                 </div>
-                <h3 className="mb-2 text-2xl font-bold">Nikhil Jangid</h3>
+                <h3 className="mb-2 text-2xl font-bold">Gulshan Jangid</h3>
                 <p className="mb-4 text-purple-600 dark:text-purple-400">Full Stack Developer</p>
                 <p className="mb-6 max-w-2xl text-gray-600 dark:text-gray-300 typing-text">
-                  A 21-year-old innovator from Jaipur, Rajasthan, dedicated to building tools that transform lives. ResumeRocket AI simplifies job applications for all.
+                  A 23-year-old innovator from Jaipur, Rajasthan, dedicated to building tools that transform lives. ResumeRocket AI simplifies job applications for all.
                 </p>
                 <div className="flex justify-center space-x-4">
                   <a
-                    href="https://github.com/nikhiljangid120"
+                    href="https://github.com/gulshanjangid120"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-600 hover:text-purple-600 dark:text-gray-300 dark:hover:text-purple-400 social-icon"
@@ -1053,7 +1046,7 @@ export function LandingPage() {
                     <Github className="h-6 w-6" />
                   </a>
                   <a
-                    href="https://www.linkedin.com/in/nikhil-jangid-b84360264/"
+                    href="https://www.linkedin.com/in/gulshan-jangid/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-600 hover:text-purple-600 dark:text-gray-300 dark:hover:text-purple-400 social-icon"

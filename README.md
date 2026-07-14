@@ -34,7 +34,7 @@ Follow these instructions to get the project up and running on your local machin
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/nikhiljangid120/AI-Resume-Builder.git
+    git clone https://github.com/gulshanjangid120/AI-Resume-Builder.git
     cd AI-Resume-Builder
     ```
 
@@ -50,13 +50,16 @@ Follow these instructions to get the project up and running on your local machin
     > [!IMPORTANT]
     > This project requires a Groq API key for AI features.
 
-    Create a `.env.local` file in the root directory and add your key:
+    Create a `.env.local` file in the root directory (see `.env.example`):
     
     ```env
     NEXT_PUBLIC_GROQ_API_KEY=your_gsk_key_here
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
+    CLERK_SECRET_KEY=sk_test_...
     ```
     
-    You can get a free API key from the [Groq Console](https://console.groq.com/keys).
+    - Groq key: [Groq Console](https://console.groq.com/keys)
+    - Clerk keys: [Clerk Dashboard](https://dashboard.clerk.com) (enables Sign In / Sign Up + protects `/resume-builder`)
 
 4.  **Run the development server:**
     ```bash

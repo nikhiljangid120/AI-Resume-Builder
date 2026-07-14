@@ -3,12 +3,12 @@ import { defaultCustomization } from "./templates"
 
 export const defaultResumeData: ResumeData = {
   personalInfo: {
-    name: "Nikhil Jangid",
+    name: "Gulshan Jangid",
     title: "Full Stack Developer",
-    email: "nikhil.jangid@example.com",
+    email: "gulshan.jangid@example.com",
     phone: "+91 9876543210",
     location: "Shahpura, Jaipur",
-    website: "github.com/nikhiljangid",
+    website: "github.com/gulshanjangid120",
     summary:
       "Driven Full-Stack Developer with expertise in MERN stack and C++ problem-solving. Skilled in creating scalable, high-performance applications and collaborating on innovative projects.",
   },
@@ -57,7 +57,7 @@ export const defaultResumeData: ResumeData = {
       name: "AI Resume Builder",
       description: "A modern resume builder with AI-powered content suggestions and ATS optimization.",
       technologies: "React.js, Next.js, Tailwind CSS, AI Integration",
-      link: "https://github.com/nikhiljangid/resume-rocket",
+      link: "https://github.com/gulshanjangid120/AI-Resume-Builder",
       startDate: "June 2024",
       endDate: "Ongoing",
       achievements: [
