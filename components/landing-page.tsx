@@ -2,11 +2,10 @@
 
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { AuthButtons } from "@/components/auth-buttons"
+import { AuthButtons, LaunchAppCta } from "@/components/auth-buttons"
 import { Badge } from "@/components/ui/badge"
 import {
   Sparkles,
@@ -15,7 +14,6 @@ import {
   Target,
   Palette,
   CheckCircle,
-  ArrowRight,
   ChevronDown,
   BrainCircuit,
   Lightbulb,
@@ -26,7 +24,6 @@ import {
 
 export function LandingPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const router = useRouter()
   const statRefs = useRef<(HTMLDivElement | null)[]>([])
   const hasAnimated = useRef<boolean[]>([])
 
@@ -136,39 +133,6 @@ export function LandingPage() {
   }, [])
 
   // How It Works Card Neon Grid and Particle Swarm - REMOVED
-
-
-  // Transition Effect for Buttons
-  const handleTransition = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const button = e.currentTarget
-    const rect = button.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-
-    const transitionOverlay = document.createElement("div")
-    transitionOverlay.style.position = "fixed"
-    transitionOverlay.style.top = "0"
-    transitionOverlay.style.left = "0"
-    transitionOverlay.style.width = "100vw"
-    transitionOverlay.style.height = "100vh"
-    transitionOverlay.style.background = "radial-gradient(circle at " + x + "px " + y + "px, #9333ea 0%, #3b82f6 100%)"
-    transitionOverlay.style.transform = "scale(0)"
-    transitionOverlay.style.transformOrigin = `${x}px ${y}px`
-    transitionOverlay.style.zIndex = "9999"
-    document.body.appendChild(transitionOverlay)
-
-    requestAnimationFrame(() => {
-      transitionOverlay.style.transition = "transform 0.6s ease-out"
-      transitionOverlay.style.transform = "scale(2)"
-    })
-
-    setTimeout(() => {
-      router.push("/resume-builder")
-      setTimeout(() => {
-        transitionOverlay.remove()
-      }, 600)
-    }, 400)
-  }
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 relative overflow-x-hidden">
@@ -652,13 +616,10 @@ export function LandingPage() {
                 Unleash your career potential with AI-crafted resumes that captivate recruiters and conquer ATS systems effortlessly.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  size="lg"
+                <LaunchAppCta
+                  label="Build Your Resume"
                   className="bg-purple-600 hover:bg-purple-700 text-white futuristic-button"
-                  onClick={handleTransition}
-                >
-                  Build Your Resume <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
+                />
                 <a href="#features">
                   <Button
                     size="lg"
@@ -991,13 +952,10 @@ export function LandingPage() {
               <p className="mb-8 text-lg opacity-90 animate-fade-in">
                 Join thousands who’ve landed dream jobs with ResumeRocket AI. Free, fast, and effortless.
               </p>
-              <Button
-                size="lg"
+              <LaunchAppCta
+                label="Build Your Resume Now"
                 className="bg-white text-purple-600 hover:bg-gray-100 futuristic-button"
-                onClick={handleTransition}
-              >
-                Build Your Resume Now <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+              />
             </div>
           </div>
         </section>
@@ -1103,9 +1061,11 @@ export function LandingPage() {
               <p className="text-gray-400 mb-4">
                 Create your dream resume with ResumeRocket AI today.
               </p>
-              <Button className="bg-purple-600 hover:bg-purple-700 futuristic-button" onClick={handleTransition}>
-                Launch App
-              </Button>
+              <LaunchAppCta
+                label="Launch App"
+                size="default"
+                className="bg-purple-600 hover:bg-purple-700 futuristic-button"
+              />
             </div>
           </div>
           <div className="mt-8 pt-8 border-t border-gray-800 text-center">

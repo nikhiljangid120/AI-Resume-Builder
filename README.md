@@ -9,7 +9,8 @@ This project is a modern, feature-rich Resume Builder built with **Next.js**, **
 - **Multiple Professional Templates**: Choose from a variety of distinct templates including Modern, Minimal, ATS-Friendly, Creative, Executive, and more.
 - **ATS Optimization**: Built-in checker analyzes your resume against job descriptions to ensure high parseability by Applicant Tracking Systems.
 - **Smart Customization**: drag-and-drop section reordering, custom theme colors, font selection, and adjustable spacing.
-- **Local Data Privacy**: Your resume data is stored locally in your browser (LocalStorage). No sign-up required, and your personal data stays with you.
+- **Local Data Privacy**: Your resume data is stored locally in your browser (LocalStorage). With Clerk auth enabled, only signed-in users can access the builder.
+- **Authentication**: Clerk Sign In / Sign Up with protected `/resume-builder` routes.
 - **PDF Export**: High-quality, print-ready PDF export functionality.
 ## 🛠️ Tech Stack
 
@@ -60,6 +61,29 @@ Follow these instructions to get the project up and running on your local machin
     
     - Groq key: [Groq Console](https://console.groq.com/keys)
     - Clerk keys: [Clerk Dashboard](https://dashboard.clerk.com) (enables Sign In / Sign Up + protects `/resume-builder`)
+
+    Also set these Clerk URLs (required for Next.js 16 redirects):
+
+    ```env
+    NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+    NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+    NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/resume-builder
+    NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/resume-builder
+    ```
+
+### Deploy on Vercel
+
+Live apps (latest push already deploys successfully):
+
+- https://ai-resume-builder-2026.vercel.app
+- https://ai-resume-builder-epbj.vercel.app
+
+1. Open your Vercel project → **Settings → Environment Variables**
+2. Add the Clerk + Groq keys above for **Production**
+3. In [Clerk Dashboard](https://dashboard.clerk.com) → **Configure → Domains**, add your Vercel domain(s)
+4. Redeploy (Deployments → … → Redeploy)
+
+> Tip: You currently have **multiple** Vercel projects linked to this repo. Prefer one production project and archive the old failing ones so GitHub Deployments stays clean.
 
 4.  **Run the development server:**
     ```bash

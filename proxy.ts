@@ -2,6 +2,7 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server"
 import { NextResponse } from "next/server"
 
 const isProtectedRoute = createRouteMatcher(["/resume-builder(.*)"])
+
 const hasClerk = Boolean(
   process.env.CLERK_SECRET_KEY && process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
 )
@@ -9,10 +10,12 @@ const hasClerk = Boolean(
 export default hasClerk
   ? clerkMiddleware(async (auth, request) => {
       if (isProtectedRoute(request)) {
-        await auth.protect()
+        await auth.protect({
+          unauthenticatedUrl: new URL("/sign-in", request.url).toString(),
+        })
       }
     })
-  : function middleware() {
+  : function proxy() {
       return NextResponse.next()
     }
 

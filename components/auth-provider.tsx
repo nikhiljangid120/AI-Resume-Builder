@@ -9,5 +9,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return <>{children}</>
   }
 
-  return <ClerkProvider publishableKey={publishableKey}>{children}</ClerkProvider>
+  return (
+    <ClerkProvider
+      publishableKey={publishableKey}
+      signInUrl="/sign-in"
+      signUpUrl="/sign-up"
+      signInFallbackRedirectUrl="/resume-builder"
+      signUpFallbackRedirectUrl="/resume-builder"
+    >
+      {children}
+    </ClerkProvider>
+  )
 }
